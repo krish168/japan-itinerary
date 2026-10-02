@@ -58,23 +58,6 @@
       background: var(--red);
     }
 
-    .floating-pdf {
-      position: fixed;
-      z-index: 48;
-      right: 18px;
-      bottom: 18px;
-      padding: 11px 15px;
-      border: 1px solid rgba(255,255,255,.2);
-      border-radius: 999px;
-      color: white;
-      background: var(--red-dark);
-      box-shadow: 0 10px 28px rgba(24,27,25,.18);
-      font-size: .78rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .floating-pdf:hover { background: var(--red); }
-
     .hero {
       position: relative;
       min-height: 590px;
@@ -421,7 +404,6 @@
       .hero h1 { max-width: 340px; font-size: clamp(3.3rem, 14vw, 4.2rem); }
       .hero-copy { width: 100%; max-width: 100%; overflow-wrap: anywhere; }
       .hero-meta { display: grid; grid-template-columns: repeat(2, max-content); }
-      .floating-pdf { right: 12px; bottom: 12px; }
       .brand { display: none; }
       nav { width: 100%; padding: 0 9px; }
       .nav-links { width: 100%; }
@@ -455,7 +437,7 @@
     @page { size: A4; margin: 16mm; }
     @media print {
       body { color: #111; background: white; font-family: Georgia, "Times New Roman", serif; font-size: 10.5pt; line-height: 1.45; }
-      .screen-site, .progress, .floating-pdf { display: none !important; }
+      .screen-site, .progress { display: none !important; }
       .print-guide { display: block; }
       .print-guide h1 { margin: 0 0 4mm; color: #111; font: 700 25pt/1.05 Arial, sans-serif; letter-spacing: -.04em; }
       .print-guide h2 { margin: 8mm 0 3mm; padding-bottom: 2mm; border-bottom: .5pt solid #aaa; font: 700 15pt/1.2 Arial, sans-serif; letter-spacing: -.02em; break-after: avoid; }
@@ -471,8 +453,6 @@
 </head>
 <body>
   <div class="progress screen-site" aria-hidden="true"></div>
-  <button class="floating-pdf screen-site" type="button" data-save-pdf>Save PDF</button>
-
   <div class="screen-site">
     <header class="hero" id="top">
       <div class="hero-inner">
