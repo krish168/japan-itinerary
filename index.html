@@ -1,0 +1,856 @@
+ download<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A crisp, first-timer-friendly Japan itinerary through Hakone, Kyoto, Osaka and Tokyo.">
+  <meta name="theme-color" content="#f7f5f0">
+  <title>Japan, Unhurried - A First-Timer’s Itinerary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f5f0;
+      --surface: #fffefa;
+      --ink: #181b19;
+      --muted: #626862;
+      --line: #dedfd9;
+      --red: #9d3028;
+      --red-dark: #70211c;
+      --green: #2f5443;
+      --gold: #9b7338;
+      --soft-red: #f3e8e4;
+      --soft-green: #e8efea;
+      --radius: 28px;
+      --shadow: 0 24px 70px rgba(31, 35, 31, .08);
+      --font: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      --display: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button, select { font: inherit; }
+    a { color: var(--red-dark); text-underline-offset: 3px; }
+    a:hover { color: var(--red); }
+    :focus-visible { outline: 3px solid #d9a850; outline-offset: 3px; border-radius: 6px; }
+    ::selection { color: white; background: var(--red); }
+
+    .progress {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--red);
+    }
+
+    .floating-pdf {
+      position: fixed;
+      z-index: 48;
+      right: 18px;
+      bottom: 18px;
+      padding: 11px 15px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 999px;
+      color: white;
+      background: var(--red-dark);
+      box-shadow: 0 10px 28px rgba(24,27,25,.18);
+      font-size: .78rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .floating-pdf:hover { background: var(--red); }
+
+    .hero {
+      position: relative;
+      min-height: 590px;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      color: white;
+      background:
+        radial-gradient(circle at 77% 38%, #efb76e 0 8%, rgba(239,183,110,.25) 8.2%, transparent 24%),
+        linear-gradient(145deg, #17261f 0%, #29493b 52%, #73312a 100%);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      right: -8vw;
+      bottom: -24vw;
+      width: 72vw;
+      height: 72vw;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 8vw rgba(255,255,255,.025),
+        0 0 0 16vw rgba(255,255,255,.018);
+    }
+
+    .hero::after {
+      content: "日本";
+      position: absolute;
+      right: 6vw;
+      top: 7vw;
+      color: rgba(255,255,255,.07);
+      font-size: clamp(8rem, 24vw, 22rem);
+      font-weight: 700;
+      letter-spacing: -.12em;
+      line-height: 1;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1120px, calc(100% - 40px));
+      margin: auto;
+      padding: 120px 0 72px;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: #f4cf9b;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 920px;
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(3.5rem, 7vw, 5.8rem);
+      line-height: .95;
+      letter-spacing: -.045em;
+      font-weight: 600;
+      text-wrap: balance;
+    }
+
+    .hero-copy {
+      max-width: 640px;
+      margin: 34px 0 0;
+      color: rgba(255,255,255,.78);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .hero-meta span {
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      color: rgba(255,255,255,.82);
+      background: rgba(255,255,255,.06);
+      font-size: .78rem;
+    }
+
+    .nav-shell {
+      position: sticky;
+      z-index: 50;
+      top: 0;
+      border-bottom: 1px solid rgba(24,27,25,.09);
+      background: rgba(247,245,240,.92);
+      backdrop-filter: blur(18px);
+    }
+
+    nav {
+      width: min(1120px, calc(100% - 32px));
+      min-height: 66px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand { font-weight: 750; letter-spacing: -.02em; white-space: nowrap; }
+    .nav-links { min-width: 0; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a {
+      padding: 8px 11px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 650;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--ink); background: white; }
+
+    .page {
+      width: min(1120px, calc(100% - 40px));
+      margin: auto;
+    }
+
+    .section { padding: 96px 0; border-bottom: 1px solid var(--line); }
+    .section:last-child { border: 0; }
+    .section-heading {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      align-items: end;
+      gap: 44px;
+      margin-bottom: 40px;
+    }
+    .label { color: var(--red); font-size: .72rem; font-weight: 750; letter-spacing: .15em; text-transform: uppercase; }
+    h2 {
+      margin: 8px 0 0;
+      font-family: var(--display);
+      font-size: clamp(2.25rem, 4.4vw, 4rem);
+      font-weight: 600;
+      line-height: .98;
+      letter-spacing: -.055em;
+    }
+    .intro { max-width: 630px; margin: 0; color: var(--muted); font-size: 1.03rem; }
+
+    .top-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .top-card {
+      min-height: 250px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: 0 12px 40px rgba(31,35,31,.045);
+    }
+    .top-card:first-child { border-top: 3px solid var(--green); }
+    .top-card:nth-child(2) { border-top: 3px solid var(--red); }
+    .top-card:nth-child(3) { border-top: 3px solid var(--gold); }
+    .top-number { color: var(--muted); font-size: .72rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    .top-card h3 { margin: 0 0 8px; font-family: var(--display); font-size: 1.65rem; font-weight: 600; letter-spacing: -.035em; }
+    .top-card p { margin: 0; color: inherit; opacity: .76; font-size: .9rem; }
+    .top-card a { align-self: flex-start; margin-top: 16px; color: var(--red-dark); font-size: .78rem; font-weight: 700; }
+
+    .choice {
+      margin-top: 16px;
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--gold);
+      border-radius: 18px;
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .choice strong { flex: 0 0 auto; color: var(--ink); }
+    .choice p { margin: 0; font-size: .88rem; }
+
+    .itinerary-shell {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      min-height: 570px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .day-list {
+      padding: 13px;
+      border-right: 1px solid var(--line);
+      background: #f0eee8;
+    }
+
+    .day-button {
+      width: 100%;
+      padding: 12px 13px;
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      align-items: center;
+      gap: 10px;
+      border: 0;
+      border-radius: 13px;
+      color: var(--muted);
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+    .day-button + .day-button { margin-top: 2px; }
+    .day-button:hover { color: var(--ink); background: rgba(255,255,255,.55); }
+    .day-button.active { color: var(--ink); background: white; box-shadow: 0 4px 18px rgba(31,35,31,.06); }
+    .day-button strong { font-size: 1rem; }
+    .day-button span { display: block; font-size: .72rem; }
+    .day-button .date { color: var(--red); font-size: .78rem; font-weight: 750; white-space: nowrap; }
+
+    .day-select-wrap { display: none; padding: 14px; border-bottom: 1px solid var(--line); background: #f0eee8; }
+    .day-select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--ink);
+      background: white;
+    }
+
+    .day-detail { padding: clamp(26px, 5vw, 52px); }
+    .day-detail header { padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+    .day-kicker { color: var(--red); font-size: .72rem; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+    .day-detail h3 { margin: 7px 0 8px; font-family: var(--display); font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 600; line-height: 1; letter-spacing: -.045em; }
+    .day-summary { margin: 0; color: var(--muted); }
+    .day-sections { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .day-block { padding: 22px 24px 14px 0; }
+    .day-block:nth-child(even) { padding-left: 24px; border-left: 1px solid var(--line); }
+    .day-block:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .day-block h4 { margin: 0 0 8px; font-size: .73rem; letter-spacing: .11em; text-transform: uppercase; }
+    .day-block p, .day-block ul, .day-block ol { margin: 0; color: var(--muted); font-size: .88rem; }
+    .day-block ul, .day-block ol { padding-left: 18px; }
+    .day-block li + li { margin-top: 4px; }
+    .day-tip { margin-top: 20px; padding: 15px 17px; border-left: 3px solid var(--gold); border-radius: 0 12px 12px 0; color: #604c31; background: #f5eddf; font-size: .84rem; }
+    .inline-links { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+    .mini-link {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink);
+      background: white;
+      font-size: .72rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .mini-link:hover { color: white; border-color: var(--red); background: var(--red); }
+
+    .stays { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .stay {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--surface);
+    }
+    .stay:first-child { color: white; border-color: transparent; background: var(--green); }
+    .stay-city { color: var(--red); font-size: .68rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+    .stay:first-child .stay-city { color: #dfbd85; }
+    .stay h3 { margin: 7px 0 10px; font-family: var(--display); font-size: 1.4rem; font-weight: 600; letter-spacing: -.03em; }
+    .stay p { margin: 0; color: var(--muted); font-size: .86rem; }
+    .stay:first-child p { color: rgba(255,255,255,.72); }
+    .stay a { color: inherit; }
+
+    .booking-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .booking {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface);
+    }
+    .booking-when { color: var(--red); font-size: .67rem; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; }
+    .booking h3 { margin: 8px 0; font-size: 1.05rem; }
+    .booking p { margin: 0; color: var(--muted); font-size: .78rem; }
+    .booking a { display: inline-block; margin-top: 10px; font-size: .72rem; font-weight: 700; }
+
+    .tips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .tip-card { padding: 22px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); }
+    .tip-card h3 { margin: 0 0 8px; font-size: 1.15rem; }
+    .tip-card p, .tip-card ul { margin: 0; color: var(--muted); font-size: .82rem; }
+    .tip-card ul { padding-left: 17px; }
+    .tip-card li + li { margin-top: 5px; }
+    .tip-card.wide { grid-column: span 2; color: white; border-color: transparent; background: var(--red-dark); }
+    .tip-card.wide p { color: rgba(255,255,255,.72); }
+    .japanese { display: block; margin: 13px 0 8px; color: white; font-size: 1.05rem; line-height: 1.65; }
+
+    .verdict {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+    }
+    .verdict article { padding: 24px; }
+    .verdict article + article { border-left: 1px solid var(--line); }
+    .verdict article:first-child { border-top: 3px solid var(--green); color: var(--ink); background: var(--surface); }
+    .verdict h3 { margin: 0 0 12px; font-size: 1.2rem; }
+    .verdict ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: .82rem; }
+    .verdict article:first-child ul { color: var(--muted); }
+    .verdict li + li { margin-top: 5px; }
+
+    footer {
+      padding: 72px 20px;
+      color: white;
+      text-align: center;
+      background: #17231d;
+    }
+    footer h2 { margin: 0 0 12px; font-family: var(--display); font-size: clamp(2.5rem, 5vw, 4.4rem); font-weight: 600; }
+    footer p { max-width: 600px; margin: 0 auto 24px; color: rgba(255,255,255,.64); font-size: .88rem; }
+    .pdf-button {
+      padding: 12px 17px;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px;
+      color: white;
+      background: rgba(255,255,255,.07);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .pdf-button:hover { background: rgba(255,255,255,.14); }
+    .print-guide { display: none; }
+
+    @media (max-width: 900px) {
+      .section-heading { grid-template-columns: 1fr; gap: 16px; }
+      .top-grid, .tips { grid-template-columns: 1fr 1fr; }
+      .top-card:last-child { grid-column: span 2; }
+      .booking-grid { grid-template-columns: repeat(2, 1fr); }
+      .verdict { grid-template-columns: 1fr; }
+      .verdict article + article { border-left: 0; border-top: 1px solid var(--line); }
+    }
+
+    @media (max-width: 700px) {
+      .hero { min-height: 610px; }
+      .hero::after { top: 22vw; right: 2vw; }
+      .hero-inner { width: 100%; max-width: 100vw; padding: 100px 20px 58px; }
+      .hero .eyebrow { max-width: 290px; line-height: 1.6; }
+      .hero h1 { max-width: 340px; font-size: clamp(3.3rem, 14vw, 4.2rem); }
+      .hero-copy { width: 100%; max-width: 100%; overflow-wrap: anywhere; }
+      .hero-meta { display: grid; grid-template-columns: repeat(2, max-content); }
+      .floating-pdf { right: 12px; bottom: 12px; }
+      .brand { display: none; }
+      nav { width: 100%; padding: 0 9px; }
+      .nav-links { width: 100%; }
+      .page { width: 100%; max-width: 100vw; padding: 0 14px; }
+      .section { padding: 68px 0; }
+      .section-heading, .section-heading > *, .top-grid, .stays, .tips, .booking-grid, .verdict {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+      }
+      h2, .intro, .top-card, .stay, .tip-card, .booking, .choice {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+      }
+      .top-grid, .stays, .tips, .booking-grid { grid-template-columns: 1fr; }
+      .top-card:last-child, .tip-card.wide { grid-column: auto; }
+      .itinerary-shell { display: block; min-height: 0; }
+      .day-list { display: none; }
+      .day-select-wrap { display: block; }
+      .day-detail { padding: 26px 20px; }
+      .day-sections { grid-template-columns: 1fr; }
+      .day-block, .day-block:nth-child(even) { padding: 18px 0; border-left: 0; }
+      .day-block:nth-child(n+2) { border-top: 1px solid var(--line); }
+      .verdict { display: block; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
+    @page { size: A4; margin: 16mm; }
+    @media print {
+      body { color: #111; background: white; font-family: Georgia, "Times New Roman", serif; font-size: 10.5pt; line-height: 1.45; }
+      .screen-site, .progress, .floating-pdf { display: none !important; }
+      .print-guide { display: block; }
+      .print-guide h1 { margin: 0 0 4mm; color: #111; font: 700 25pt/1.05 Arial, sans-serif; letter-spacing: -.04em; }
+      .print-guide h2 { margin: 8mm 0 3mm; padding-bottom: 2mm; border-bottom: .5pt solid #aaa; font: 700 15pt/1.2 Arial, sans-serif; letter-spacing: -.02em; break-after: avoid; }
+      .print-guide h3 { margin: 5mm 0 1.5mm; font: 700 11.5pt/1.2 Arial, sans-serif; break-after: avoid; }
+      .print-guide p, .print-guide li { orphans: 3; widows: 3; }
+      .print-guide ul { margin-top: 1.5mm; padding-left: 5mm; }
+      .print-guide .subtitle { color: #555; font: 10pt Arial, sans-serif; }
+      .print-guide .print-day { break-inside: avoid; }
+      .print-guide a { color: #111; text-decoration: none; }
+      .print-guide .note { padding: 3mm; border-left: 2pt solid #9d3028; background: #f4f1eb; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress screen-site" aria-hidden="true"></div>
+  <button class="floating-pdf screen-site" type="button" data-save-pdf>Save PDF</button>
+
+  <div class="screen-site">
+    <header class="hero" id="top">
+      <div class="hero-inner">
+        <p class="eyebrow">First-timer’s field guide</p>
+        <h1>Japan, unhurried.</h1>
+        <p class="hero-copy">A clear, vegetarian-friendly journey through Hakone, Kyoto, Osaka and Tokyo - built from what we actually loved, what we would skip and what you need to reserve.</p>
+        <div class="hero-meta">
+          <span>10 days</span><span>4 bases</span><span>2 travellers</span><span>Vegetarian-friendly</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="nav-shell">
+      <nav aria-label="Page navigation">
+        <a class="brand" href="#top">Japan, unhurried</a>
+        <div class="nav-links">
+          <a href="#start">Start here</a>
+          <a href="#itinerary">Itinerary</a>
+          <a href="#stays">Stays</a>
+          <a href="#book">Book ahead</a>
+          <a href="#essentials">First-time tips</a>
+        </div>
+      </nav>
+    </div>
+
+    <main class="page">
+      <section class="section" id="start">
+        <div class="section-heading">
+          <div><span class="label">Start here</span><h2>Three must-visit experiences</h2></div>
+          <p class="intro">These were our three favourite experiences. If you have limited time, keep these in your plan.</p>
+        </div>
+        <div class="top-grid">
+          <article class="top-card">
+            <span class="top-number">01 - Relax</span>
+            <div><h3>Hakone</h3><p>Stay one or two nights. Ride the ropeway, then leave enough time for the hot-spring baths, kimono, sauna and hotel activities.</p></div>
+          </article>
+          <article class="top-card">
+            <span class="top-number">02 - Digital art</span>
+            <div><h3>teamLab Biovortex Kyoto</h3><p>This is the teamLab museum we recommend. Allow 2-3 hours and choose an evening time after an afternoon rest.</p><a href="https://www.teamlab.art/e/kyoto/" target="_blank" rel="noopener">Book teamLab Biovortex ↗</a></div>
+          </article>
+          <article class="top-card">
+            <span class="top-number">03 - Sunset view</span>
+            <div><h3>SHIBUYA SKY</h3><p>Enter about an hour before sunset and stay until the city lights come on.</p><a href="https://www.shibuya-scramble-square.com/sky/ticket/" target="_blank" rel="noopener">Book SHIBUYA SKY ↗</a></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="itinerary">
+        <div class="section-heading">
+          <div><span class="label">10-day itinerary</span><h2>One day at a time</h2></div>
+          <p class="intro">Choose a date to see the route, food, useful tips and links for that day in one card.</p>
+        </div>
+
+        <div class="itinerary-shell">
+          <div class="day-list" id="dayList" role="tablist" aria-label="Choose itinerary day"></div>
+          <div class="day-select-wrap">
+            <label for="daySelect" class="label">Choose a day</label>
+            <select class="day-select" id="daySelect" aria-label="Choose itinerary day"></select>
+          </div>
+          <article class="day-detail" id="dayDetail" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <section class="section" id="stays">
+        <div class="section-heading">
+          <div><span class="label">Where to stay</span><h2>Hotels and locations we chose</h2></div>
+          <p class="intro">For a first trip, a convenient location is very important. Stay near the train route you will use and confirm luggage arrangements before arrival.</p>
+        </div>
+        <div class="stays">
+          <article class="stay">
+            <span class="stay-city">Hakone · Special stay</span>
+            <h3>Setsugetsuka Bettei Suiun</h3>
+            <p>Book a Japanese-style twin room. Its in-room bath receives natural hot-spring water, and separate private hot-spring baths are available. Arrive early enough to use them. <a href="https://www.klook.com/hotels/detail/23781-setsugetsuka-bettei-suiun/" target="_blank" rel="noopener">Book Setsugetsuka Bettei Suiun hotel on Klook ↗</a> For a lower price, choose Tokinoyu Setsugetsuka hotel. Both hotels are run by the same company and both have separate private hot-spring baths. The main difference is that the bath inside your room at Tokinoyu does not receive natural hot-spring water. <a href="https://www.klook.com/en-IN/hotels/detail/270600-toki-no-yu-setsugetsuka/" target="_blank" rel="noopener">Book Tokinoyu Setsugetsuka hotel on Klook ↗</a></p>
+          </article>
+          <article class="stay">
+            <span class="stay-city">Kyoto · Connected</span>
+            <h3>Airbnb near Tōfukuji</h3>
+            <p>One JR stop from Kyoto Station and convenient for Fushimi Inari and Nara. The location was excellent; the rooms felt small.</p>
+            <a href="https://www.airbnb.co.in/rooms/1383666305215118051" target="_blank" rel="noopener">View the Kyoto Airbnb ↗</a>
+          </article>
+          <article class="stay">
+            <span class="stay-city">Osaka · Our pick</span>
+            <h3>Hiyori Hotel Namba</h3>
+            <p>Choose the Deluxe Double Room. It is spacious, close to Namba and includes a foot massager in every room.</p>
+            <a href="https://www.klook.com/en-IN/hotels/detail/1054589-hiyori-hotel-osaka-namba-station/" target="_blank" rel="noopener">Book Hiyori Hotel on Klook ↗</a>
+          </article>
+          <article class="stay">
+            <span class="stay-city">Tokyo · Central</span>
+            <h3>Tokyo Sunshine Tower, Minato</h3>
+            <p>Central for Ginza, Shibuya, Toyosu and Haneda. You can also stay in Shinjuku or Ginza if most of your plans are close to those areas.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="book">
+        <div class="section-heading">
+          <div><span class="label">Book in advance</span><h2>What to book early</h2></div>
+          <p class="intro">Book these places and trains early. You can decide the rest later. Compare prices and refund rules before using another booking website.</p>
+        </div>
+        <div class="booking-grid">
+          <article class="booking"><span class="booking-when">When your dates are fixed</span><h3>Biovortex Kyoto</h3><p>Choose an evening entry time. This is the only teamLab we recommend booking.</p><a href="https://www.teamlab.art/e/kyoto/" target="_blank" rel="noopener">Book teamLab Biovortex ↗</a></article>
+          <article class="booking"><span class="booking-when">1 month before</span><h3>Shinkansen</h3><p>Reserve Odawara-Kyoto and Shin-Osaka-Tokyo through SmartEX.</p><a href="https://smart-ex.jp/en/" target="_blank" rel="noopener">Book Shinkansen tickets ↗</a></article>
+          <article class="booking"><span class="booking-when">1 month before - 00:00 JST</span><h3>Sagano train</h3><p>Book one way and choose open-air Car No. 5 if available.</p><a href="https://www.sagano-kanko.co.jp/en/" target="_blank" rel="noopener">Book the Sagano train ↗</a></article>
+          <article class="booking"><span class="booking-when">14 days before - 00:00 JST</span><h3>SHIBUYA SKY</h3><p>Choose an entry time 60-90 minutes before sunset.</p><a href="https://www.shibuya-scramble-square.com/sky/ticket/" target="_blank" rel="noopener">Book SHIBUYA SKY ↗</a></article>
+          <article class="booking"><span class="booking-when">At least 3 days before</span><h3>Shigetsu</h3><p>Your booking is complete only after you receive a confirmation email.</p><a href="https://www.tenryuji.com/shigetsu/contact.html" target="_blank" rel="noopener">Book Shigetsu ↗</a></article>
+        </div>
+        <div class="choice">
+          <strong>Klook note</strong>
+          <p>Klook bookings may include a free or discounted eSIM. A new traveller should open the referral link before signing up and use their own email address and phone number. The reward may be about ₹400, but the amount and rules can change.</p>
+        </div>
+      </section>
+
+      <section class="section" id="essentials">
+        <div class="section-heading">
+          <div><span class="label">First-time essentials</span><h2>Know this before you land</h2></div>
+          <p class="intro">The practical advice we wish every first-time visitor had in one place.</p>
+        </div>
+        <div class="tips">
+          <article class="tip-card"><h3>Shinkansen</h3><ul><li>Shin-Osaka and Osaka are different stations.</li><li>Save a screenshot of the ticket QR code on your phone.</li><li>After buying a Suica card in Japan, you can also link its card number to your SmartEX booking. Then tap the Suica card at the Shinkansen gate.</li><li>Queueing early at the first station improves your chance of getting a seat in a non-reserved car, but a seat is not guaranteed.</li><li>Nozomi may have reserved seats only during busy travel periods.</li><li>Reserve luggage space when the suitcase length + width + height is more than 160 cm.</li></ul></article>
+          <article class="tip-card"><h3>Suica &amp; cash</h3><ul><li>Buy a Welcome Suica at Haneda Airport before leaving the airport. Add at least ¥5,000 to each card.</li><li>Welcome Suica is currently valid for 28 days. Money left on it cannot be refunded.</li><li>Recharge a physical card with cash at supported ticket machines or Seven Bank ATMs.</li><li>We carried about ₹60,000 cash for two people over nine days.</li><li>When paying by card, always choose yen.</li></ul></article>
+          <article class="tip-card"><h3>Bring Indian comfort food</h3><p>Rajma, jeera rice, thepla and chutney were very helpful after long days. Use sealed food packs that do not need a fridge, pack chutney in containers that do not leak and check Japan’s food rules before travelling. A microwave or small kitchen helps.</p></article>
+          <article class="tip-card"><h3>Luggage</h3><p>Ask if you can leave bags before check-in. Large station lockers fill up on holidays. Japanese luggage delivery (takkyubin) is useful, but first ask if your next hotel or host can receive the bag.</p></article>
+          <article class="tip-card"><h3>Convenience-store favourites</h3><ul><li>FamilyMart Margherita pizza wrap</li><li>7-Eleven OHAYO Crème Brûlée</li><li>7-Eleven Butter de Shikonda Funwari Melonpan</li><li>Use remaining coins to print photos at 7-Eleven.</li></ul></article>
+          <article class="tip-card"><h3>Try a short night bike ride</h3><p>Use Lime or LUUP for a short late-night ride in Kyoto or Tokyo. It is a fun way to explore quiet streets without a fixed plan. Check the app for bikes near you, park only in an approved parking area, follow local traffic rules and never ride after drinking alcohol.</p></article>
+          <article class="tip-card wide"><h3>Vegetarian does not always mean no fish stock.</h3><p>Ask specifically about dashi, bonito, fish extract and egg. Save this on your phone:</p><span class="japanese" lang="ja">私たちはベジタリアンです。肉、魚、魚介類、魚のだし、卵は食べられません。乳製品は大丈夫です。</span><p>We are vegetarian. We cannot eat meat, fish, seafood, fish stock/dashi or egg. Dairy is fine.</p></article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <div><span class="label">Our recommendations</span><h2>What to visit and what to skip</h2></div>
+          <p class="intro">Not every popular place needs to be on your first Japan trip.</p>
+        </div>
+        <div class="verdict">
+          <article><h3>Must visit</h3><ul><li>One night in Hakone with time for the hot-spring baths</li><li>Sagano one way + walk to JR Umahori</li><li>Shigetsu’s Yuki lunch</li><li>Biovortex Kyoto</li><li>Fushimi Inari at sunrise</li><li>Margherita DOC at SaluTori</li><li>SHIBUYA SKY before sunset</li></ul></article>
+          <article><h3>Nice if you have time</h3><ul><li>Arashiyama Bamboo Grove, early and while nearby</li><li>Dōtonbori after dark</li><li>Takeshita Street and a Japanese photo booth</li><li>Tokyo Skytree for a second city view</li><li>teamLab Planets only if you want to visit both teamLab museums</li></ul></article>
+          <article><h3>Easy to skip</h3><ul><li>The average massage near Namba</li><li>Shokaku Noodles when UZU is available</li><li>Planets if Biovortex is booked and time is tight</li></ul></article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <h2>Ready when you are.</h2>
+      <p>The button below prints a separate, simply written version of the itinerary - not this visual website. In Chrome, choose <strong>Save as PDF</strong> as the destination.</p>
+      <button class="pdf-button" type="button" data-save-pdf>Save simple PDF guide</button>
+    </footer>
+  </div>
+
+  <article class="print-guide" aria-hidden="true">
+    <h1>Japan: Hakone, Kyoto, Osaka &amp; Tokyo</h1>
+    <p class="subtitle">10 days · Vegetarian-friendly · A practical guide for first-time visitors</p>
+    <p>This itinerary is based on our actual journey. It focuses on Hakone, teamLab Biovortex Kyoto and SHIBUYA SKY, with enough rest between long walking days.</p>
+
+    <h2>Day-by-day itinerary</h2>
+    <section class="print-day"><h3>17 September - Hakone</h3><p>Buy a Welcome Suica at Haneda Airport before leaving the airport and add at least ¥5,000 to each card. We travelled from Tokyo by train and then took a local bus to Gōra Station. Yumoto and Gōra are two towns in Hakone. Yumoto is the main entrance to Hakone, with more shops, restaurants and busy hot-spring streets. Gōra is higher in the mountains, quieter and closer to the cable car, ropeway and many traditional hotels. Leave luggage at the hotel, buy the Cable Car &amp; Ropeway 1-Day Ticket at Gōra Station and visit Ōwakudani before returning to Gōra. Eat the Quattro Formaggi pizza at Pub Stop Pizza &amp; Bar. Return early for the private hot-spring bath, sauna, kimono, 5 PM matcha experience, hot chocolate and free night ramen. If you stay at Setsugetsuka Bettei Suiun hotel, make time for the natural hot-spring bath in your room.</p></section>
+    <section class="print-day"><h3>18 September - Hakone to Kyoto</h3><p>Have breakfast and one final bath, then travel through Odawara. Take a direct Hikari if the time works; Nozomi does not stop at Odawara. Book through SmartEX. In Kyoto, explore Nishiki Market, Pontochō and the Kamo River. Engine Ramen has a good vegan ramen; Mumokuteki is another good choice.</p></section>
+    <section class="print-day"><h3>19 September - Arashiyama and teamLab Biovortex</h3><p>Reach the bamboo grove around 7 AM. We found it disappointing, so keep the visit short. Take the Sagano Romantic Train one way from Torokko Saga to Kameoka; choose Car No. 5 if available. Walk through the fields to JR Umahori and return to Arashiyama. Visit Tenryū-ji and book the Yuki lunch at Shigetsu. Rest in the afternoon, then spend 2-3 hours at teamLab Biovortex Kyoto. Eat at Honolu nearby and look for OHAYO Crème Brûlée and Butter de Shikonda Funwari Melonpan at 7-Eleven.</p></section>
+    <section class="print-day"><h3>20 September - Historic Kyoto</h3><p>Reach Kiyomizu-dera near opening time, then walk down Sannenzaka and Ninenzaka. Try Rabbit Bagels’ garlic cheese bagel, pickled cucumber, strawberries and warm dorayaki. Eat lunch at Mumokuteki. Continue to the Nanzen-ji aqueduct and Philosopher’s Path, or reserve a ring-making activity. Choose Vegan Ramen UZU over Shokaku Noodles.</p></section>
+    <section class="print-day"><h3>21 September - Fushimi Inari and Nara</h3><p>Reach Fushimi Inari around 6:30-7 AM and walk beyond the first torii tunnels. Continue to Nara, browse Higashimuki Shopping Street, visit Nara Park and add Tōdai-ji if time allows. Eat at Vegan Friendly Ramen by Playpen Friends. Return to Kyoto and order the Margherita DOC at Pizzeria SaluTori - the best pizza of our trip.</p></section>
+    <section class="print-day"><h3>22 September - Kyoto to Osaka</h3><p>Leave around 10 AM and stay near Namba. At Hiyori Hotel, the Deluxe Double Room is spacious and includes a foot massager. We would skip the average ¥5,000 massage nearby and rest instead. Eat Indian or Nepali comfort food, then see Dōtonbori, Don Quijote, a purikura booth and quiet Hōzenji Yokochō after dark.</p></section>
+    <section class="print-day"><h3>23 September - Osaka to Tokyo</h3><p>Travel from Namba to Shin-Osaka, not Osaka Station. For a Hikari or Kodama with non-reserved cars, arrive 20-30 minutes early. Starting at Shin-Osaka improves your chance of sitting together, but a seat is not guaranteed. Check whether Nozomi has reserved seats only on your travel date. In Tokyo, shop at UNIQLO, GU and MUJI in Ginza. ANNAM Indian Restaurant was excellent but expensive; we liked its paneer tikka masala, lachha paratha and aloo paratha.</p></section>
+    <section class="print-day"><h3>24 September - Tokyo</h3><p>Our recommendation is to visit only teamLab Biovortex Kyoto. If you still want Planets, take an early slot, wear rollable trousers and eat the basic miso ramen at Vegan Ramen UZU. Otherwise start in Ginza: visit Age.3 for the crème brûlée and strawberry chocolate sandwiches, then browse G. Itoya, Seiko and MUJI. Enter SHIBUYA SKY around an hour before sunset and stay into the night. Tickets currently open at midnight Japan time 14 days ahead.</p></section>
+    <section class="print-day"><h3>25 September - Shinjuku, Harajuku and Skytree</h3><p>Shop at Onitsuka Tiger, Yodobashi and Bic Camera. Compare cosmetics at OS Drug, Sundrug and Matsumoto Kiyoshi. Visit Age.3 again in Harajuku for the raw honey and pistachio sandwiches. Across both visits, our ranking was crème brûlée first, strawberry chocolate second, raw honey third and pistachio fourth. Walk Takeshita Street and make purikura photos. Tokyo Skytree is optional if you already visited SHIBUYA SKY.</p></section>
+    <section class="print-day"><h3>26 September - Fly home</h3><p>Reach the airport around three hours before an international flight. Spend the remaining Welcome Suica balance at airport shops or convenience stores that accept Suica because money left on the card cannot be refunded.</p></section>
+
+    <h2>Hotels</h2>
+    <ul>
+      <li><strong>Hakone:</strong> Setsugetsuka Bettei Suiun, ideally a Japanese-style twin room. Tokinoyu Setsugetsuka is a lower-priced hotel from the same company. Both have separate private hot-spring baths, but Tokinoyu’s in-room bath does not receive natural hot-spring water.</li>
+      <li><strong>Kyoto:</strong> the Airbnb near Tōfukuji was close to the train station, although the rooms felt small.</li>
+      <li><strong>Osaka:</strong> Hiyori Hotel Osaka Namba Station, preferably a Deluxe Double Room.</li>
+      <li><strong>Tokyo:</strong> Tokyo Sunshine Tower in Minato was central. Shinjuku or Ginza are also easy areas for a first visit.</li>
+    </ul>
+
+    <h2>Book ahead</h2>
+    <ul>
+      <li>Book teamLab Biovortex Kyoto when dates are fixed. It is the only teamLab we recommend.</li>
+      <li>Book Shinkansen tickets through SmartEX about one month ahead.</li>
+      <li>Book the Sagano Romantic Train at midnight Japan time one month ahead.</li>
+      <li>Book SHIBUYA SKY at midnight Japan time 14 days ahead, aiming for 60-90 minutes before sunset.</li>
+      <li>Book Shigetsu at least three days ahead and wait for its confirmation email.</li>
+    </ul>
+
+    <h2>First-time practical advice</h2>
+    <p class="note"><strong>Vegetarian food:</strong> “Vegetarian” may still include fish stock. Ask about dashi, bonito, fish extract and egg. We carried sealed packs of rajma, jeera rice, thepla and chutney so we had familiar food after long days.</p>
+    <ul>
+      <li>Buy a Welcome Suica at Haneda Airport before leaving the airport and add at least ¥5,000 to each card. It is currently valid for 28 days. Money left on it cannot be refunded. Recharge it with cash at supported ticket machines or Seven Bank ATMs.</li>
+      <li>Save a screenshot of each Shinkansen ticket QR code. After buying your Suica card in Japan, you can also link its card number to the SmartEX booking and tap the Suica card at the Shinkansen gate.</li>
+      <li>We carried about ₹60,000 cash for two people over nine days. You may need more or less depending on prepaid bookings and shopping.</li>
+      <li>Ask each hotel or host if you can leave bags before check-in. Before using Japanese luggage delivery (takkyubin), ask if your next hotel or host can receive the bag.</li>
+      <li>Reserve Shinkansen luggage space if the suitcase length + width + height is more than 160 cm.</li>
+      <li>Convenience-store favourites: FamilyMart Margherita pizza wrap, 7-Eleven OHAYO Crème Brûlée and 7-Eleven Butter de Shikonda Funwari Melonpan.</li>
+      <li>For a fun evening, use Lime or LUUP for a short bike ride in Kyoto or Tokyo. Park only in an approved area, follow local traffic rules and never ride after drinking alcohol.</li>
+    </ul>
+    <p><strong>Vegetarian phrase:</strong><br><span lang="ja">私たちはベジタリアンです。肉、魚、魚介類、魚のだし、卵は食べられません。乳製品は大丈夫です。</span><br>We are vegetarian. We cannot eat meat, fish, seafood, fish stock/dashi or egg. Dairy is fine.</p>
+    <p class="subtitle">Opening hours, prices, ticket rules and promotions can change. Recheck official sources before booking and the day before every fixed-time activity.</p>
+  </article>
+
+  <script>
+    const days = [
+      {
+        date: "17 Sep", place: "Hakone", title: "Ropeway, Ōwakudani & hot-spring hotel",
+        summary: "Start with mountain air and end in a hot-spring bath.",
+        blocks: [
+          ["Getting to Gōra", "<p>Buy a Welcome Suica at Haneda Airport before leaving the airport and add at least <strong>¥5,000</strong> to each card. We travelled from Tokyo by train and then took a local bus to <strong>Gōra Station</strong>. We left our luggage at the hotel before sightseeing.</p>"],
+          ["Two towns in Hakone: Yumoto vs Gōra", "<p><strong>Yumoto and Gōra are two towns in Hakone.</strong> Yumoto is the main entrance to Hakone, with more shops, restaurants and busy hot-spring streets. Gōra is higher in the mountains, quieter and closer to the cable car, ropeway and many traditional hotels.</p>"],
+          ["Ropeway & food", "<p>Buy the Cable Car & Ropeway 1-Day Ticket at Gōra Station. Ride to Sōunzan, continue by ropeway and stop at Ōwakudani. Back in Gōra, order the <strong>Quattro Formaggi pizza</strong> at Pub Stop Pizza & Bar.</p>"],
+          ["Hotel evening", "<p>Enjoy the kimono, private hot-spring bath, sauna, 5 PM matcha if offered, hot chocolate and free late-night ramen. If you stay at Setsugetsuka Bettei Suiun hotel, use the natural hot-spring bath in your room.</p>"]
+        ],
+        tip: "<strong>Ticket tip:</strong> buy the Cable Car & Ropeway 1-Day Ticket at Gōra Station. It allows unlimited rides that day and is useful when you want to return to Gōra.",
+        links: [["Open Pub Stop Pizza & Bar in Google Maps", "https://www.google.com/maps/search/?api=1&query=Pub+Stop+Pizza+Bar+Gora+Hakone"]]
+      },
+      {
+        date: "18 Sep", place: "Kyoto", title: "One last soak, then Kyoto at dusk",
+        summary: "A simple transfer day with a beautiful evening walk.",
+        blocks: [
+          ["Travel", "<ul><li>Breakfast, final bath, then Gōra to Odawara.</li><li>Take a direct Hikari if the time works; Nozomi does not stop at Odawara.</li><li>Reserve luggage space if length + width + height is more than 160 cm.</li></ul>"],
+          ["Evening route", "<ol><li>Nishiki Market</li><li>Pontochō lanes</li><li>Kamo River stroll</li></ol>"],
+          ["Dinner", "<p><strong>Engine Ramen</strong> had good vegan ramen. Mumokuteki is a useful vegetarian-friendly alternative.</p>"],
+          ["Train tip", "<p>At Kyoto Station, check the platform and take a local train if a fast train does not stop at your station.</p>"]
+        ],
+        tip: "Use <strong>SmartEX</strong> for the Shinkansen. Save a screenshot of the ticket QR code. After buying a Suica card in Japan, you can also link its card number to the SmartEX booking and tap the Suica card at the gate.",
+        links: [["Book Shinkansen tickets", "https://smart-ex.jp/en/"], ["Open Engine Ramen in Google Maps", "https://www.google.com/maps/search/?api=1&query=Engine+Ramen+Kyoto"], ["Open Mumokuteki in Google Maps", "https://www.google.com/maps/search/?api=1&query=mumokuteki+cafe+foods+Kyoto"]]
+      },
+      {
+        date: "19 Sep", place: "Kyoto", title: "Arashiyama, Zen lunch & Biovortex",
+        summary: "The busiest day, with a proper afternoon rest before teamLab.",
+        blocks: [
+          ["7 AM - Bamboo grove", "<p>Go early and keep the visit short. We found the grove disappointing, but it is easy to visit while you are in Arashiyama.</p>"],
+          ["Sagano train", "<p>Ride one way to Torokko Kameoka, choose open-air Car No. 5 if possible, then walk through the fields to JR Umahori and return by JR.</p>"],
+          ["Tenryū-ji & lunch", "<p>Visit the garden and reserve Shigetsu’s <strong>Yuki course</strong>. Rest properly after lunch.</p>"],
+          ["Evening", "<p>Give <strong>teamLab Biovortex Kyoto</strong> 2-3 hours. Afterwards, try Honolu and look in 7-Eleven for OHAYO Crème Brûlée and Butter de Shikonda Funwari Melonpan.</p>"]
+        ],
+        tip: "Sagano opens at <strong>00:00 JST one month ahead</strong>. Shigetsu requires confirmation. Car No. 5 gets wet in rain and umbrellas are not allowed.",
+        links: [["Book the Sagano train", "https://www.sagano-kanko.co.jp/en/"], ["Book Shigetsu", "https://www.tenryuji.com/shigetsu/contact.html"], ["Open Shigetsu in Google Maps", "https://www.google.com/maps/search/?api=1&query=Shigetsu+Tenryuji+Kyoto"], ["Book teamLab Biovortex", "https://www.teamlab.art/e/kyoto/"], ["Open Honolu Kyoto in Google Maps", "https://www.google.com/maps/search/?api=1&query=Honolu+Kyoto+Halal+Ramen+Curry"]]
+      },
+      {
+        date: "20 Sep", place: "Kyoto", title: "Historic Higashiyama, slowly",
+        summary: "Temples early, small food stops and a quieter afternoon.",
+        blocks: [
+          ["Early route", "<p>Kiyomizu-dera near opening, then Sannenzaka and Ninenzaka downhill. Add Yasaka Shrine or Gion if energy allows.</p>"],
+          ["Taste", "<p>Rabbit Bagels’ <strong>garlic cheese bagel</strong>, pickled cucumber, strawberries and warm dorayaki. Lunch at Mumokuteki.</p>"],
+          ["Afternoon", "<p>See the Nanzen-ji aqueduct, walk part of Philosopher’s Path or reserve a ring-making workshop.</p>"],
+          ["Dinner", "<p><strong>Choose Vegan Ramen UZU.</strong> Shokaku Noodles was average.</p>"]
+        ],
+        tip: "Arriving early matters more than squeezing in another temple. Keep the route mostly downhill.",
+        links: [["Kiyomizu-dera visitor information", "https://www.kiyomizudera.or.jp/en/"], ["Open Rabbit Bagels in Google Maps", "https://www.google.com/maps/search/?api=1&query=Rabbit+Bagels+Kyoto"], ["Open Mumokuteki in Google Maps", "https://www.google.com/maps/search/?api=1&query=mumokuteki+cafe+foods+Kyoto"], ["Open Vegan Ramen UZU in Google Maps", "https://www.google.com/maps/search/?api=1&query=Vegan+Ramen+UZU+Kyoto"]]
+      },
+      {
+        date: "21 Sep", place: "Nara", title: "Torii at sunrise, deer by noon",
+        summary: "Fushimi Inari before crowds, then an easy Nara day trip.",
+        blocks: [
+          ["6:30-7 AM", "<p>Reach Fushimi Inari early and continue beyond the first torii tunnels, where crowds thin.</p>"],
+          ["Nara", "<p>Browse Higashimuki Shopping Street, walk Nara Park and add Tōdai-ji if time allows. Keep food and loose paper hidden around deer.</p>"],
+          ["Lunch", "<p><strong>Vegan Friendly Ramen by Playpen Friends</strong> was very good.</p>"],
+          ["Kyoto evening", "<p>Rest, then order the <strong>Margherita DOC</strong> at Pizzeria SaluTori - the best pizza of our trip.</p>"]
+        ],
+        tip: "Fushimi Inari is open around the clock and free. The early start changes the entire experience.",
+        links: [["Fushimi Inari visitor information", "https://inari.jp/en/"], ["Open Playpen Friends in Google Maps", "https://www.google.com/maps/search/?api=1&query=Vegan+Friendly+Ramen+by+Playpen+Friends+Nara"], ["Open Pizzeria SaluTori in Google Maps", "https://www.google.com/maps/search/?api=1&query=Pizzeria+SaluTori+Kyoto"]]
+      },
+      {
+        date: "22 Sep", place: "Osaka", title: "A softer day, then Dōtonbori",
+        summary: "Use the hotel as part of the plan, not merely a bed.",
+        blocks: [
+          ["Morning", "<p>Leave Kyoto around 10 AM, reach Namba and drop bags at Hiyori Hotel. The Deluxe Double Room is spacious and has a foot massager.</p>"],
+          ["Rest", "<p>Our ¥5,000-per-person massage nearby was average. Resting at the hotel may be the better choice.</p>"],
+          ["Dinner", "<p>Choose Indian or Nepali comfort food near Namba; we enjoyed chatpata dishes and samosa chaat.</p>"],
+          ["After dark", "<p>Dōtonbori, Ebisu Bridge, the Glico sign, Don Quijote and purikura. Finish in lantern-lit Hōzenji Yokochō.</p>"]
+        ],
+        tip: "With a full Osaka day, Kaiyukan aquarium is a possible addition, but it is not needed for this one-night plan.",
+        links: [["Book Hiyori Hotel on Klook", "https://www.klook.com/en-IN/hotels/detail/1054589-hiyori-hotel-osaka-namba-station/"]]
+      },
+      {
+        date: "23 Sep", place: "Tokyo", title: "Shinkansen, Ginza & Indian dinner",
+        summary: "A long transfer made simple by knowing the station and seat rules.",
+        blocks: [
+          ["Shinkansen", "<ul><li>Travel to <strong>Shin-Osaka</strong>, not Osaka Station.</li><li>For non-reserved Hikari or Kodama, arrive 20-30 minutes early.</li><li>Starting here helps but never guarantees seats.</li><li>Check whether Nozomi is all-reserved.</li></ul>"],
+          ["Ginza", "<p>Leave your luggage, then shop at UNIQLO, GU and MUJI. These stores are close together and easy to visit when it rains.</p>"],
+          ["Dinner", "<p>ANNAM Indian Restaurant was excellent but expensive. Try paneer tikka masala, lachha paratha and aloo paratha.</p>"],
+          ["Train tip", "<p>Save a screenshot of the SmartEX ticket QR code. You can also link your Suica card number to the booking after buying the card in Japan. Then tap Suica at the Shinkansen gate. Marks on the platform show where each numbered train car will stop.</p>"]
+        ],
+        tip: "Reserve oversized-baggage space if length + width + height exceeds <strong>160 cm</strong>.",
+        links: [["Book Shinkansen tickets", "https://smart-ex.jp/en/"], ["Open ANNAM restaurant in Google Maps", "https://www.google.com/maps/search/?api=1&query=ANNAM+Indian+Restaurant+Ginza+Tokyo"]]
+      },
+      {
+        date: "24 Sep", place: "Tokyo", title: "Ginza and Tokyo at sunset",
+        summary: "Keep the day light so you have enough time and energy for SHIBUYA SKY.",
+        blocks: [
+          ["Morning choice", "<p>We recommend only <strong>Biovortex Kyoto</strong>. If you still want Planets, book an early slot, wear rollable trousers and expect mirrored floors and knee-deep water.</p>"],
+          ["If visiting Planets", "<p>Eat the basic miso ramen at Vegan Ramen UZU. It was our best vegan ramen; the yuzu version was only okay.</p>"],
+          ["Ginza · Age.3 visit one", "<p>Try the <strong>crème brûlée</strong> and <strong>strawberry chocolate</strong> sandwiches at Age.3, then browse G. Itoya, Seiko and MUJI.</p>"],
+          ["Sunset", "<p>Enter <strong>SHIBUYA SKY</strong> about an hour before sunset and stay through the night view.</p>"]
+        ],
+        tip: "SHIBUYA SKY tickets currently open at <strong>00:00 JST, 14 days ahead</strong>. Rooftop access can close in strong wind or rain.",
+        links: [["Book SHIBUYA SKY", "https://www.shibuya-scramble-square.com/sky/ticket/"], ["G. Itoya store information", "https://www.ito-ya.co.jp/ext/store/ginza/index.html"], ["Open Vegan Ramen UZU Tokyo in Google Maps", "https://www.google.com/maps/search/?api=1&query=Vegan+Ramen+UZU+Tokyo+teamLab+Planets"], ["Open Age.3 Ginza in Google Maps", "https://www.google.com/maps/search/?api=1&query=Age.3+Ginza"]]
+      },
+      {
+        date: "25 Sep", place: "Tokyo", title: "Shinjuku, Harajuku & Skytree",
+        summary: "A relaxed shopping day with an optional second city view.",
+        blocks: [
+          ["Shinjuku", "<p>Visit Onitsuka Tiger around 1 PM, then Yodobashi and Bic Camera. Check cosmetic prices at OS Drug, Sundrug and Matsumoto Kiyoshi.</p>"],
+          ["Harajuku - Age.3 visit two", "<p>Walk Takeshita Street, use a Japanese photo booth (purikura), then return to Age.3 for the <strong>raw honey</strong> and <strong>pistachio</strong> sandwiches.</p>"],
+          ["All four - our ranking", "<ol><li>Crème brûlée</li><li>Strawberry chocolate</li><li>Raw honey</li><li>Pistachio</li></ol>"],
+          ["8 PM - Skytree", "<p>Enjoy the night view if you want a second city view. If you want to pay for only one city view, choose SHIBUYA SKY.</p>"]
+        ],
+        tip: "OS Drug is often cheaper but usually does not offer tax-free shopping. Check the final price, not only the tax-free sign.",
+        links: [["Open Age.3 Harajuku in Google Maps", "https://www.google.com/maps/search/?api=1&query=Age.3+Harajuku"], ["Tokyo Skytree visitor information", "https://www.tokyo-skytree.jp/en/"]]
+      },
+      {
+        date: "26 Sep", place: "Fly home", title: "One last konbini stop",
+        summary: "A calm departure morning with no balance left behind.",
+        blocks: [
+          ["Airport", "<p>Leave in the morning and aim to arrive around three hours before an international flight.</p>"],
+          ["Suica", "<p>Spend the remaining Welcome Suica balance at airport shops, convenience stores or vending machines that accept Suica. Money left on the card cannot be refunded.</p>"],
+          ["Final check", "<p>Keep passports, tax-free purchases, batteries and travel documents where you can reach them.</p>"],
+          ["Take home", "<p>Use remaining coins to print a few trip photos at 7-Eleven before departure.</p>"]
+        ],
+        tip: "Do not load a large Suica amount near the end of the trip. Top up in small increments.",
+        links: []
+      }
+    ];
+
+    const dayList = document.getElementById("dayList");
+    const daySelect = document.getElementById("daySelect");
+    const dayDetail = document.getElementById("dayDetail");
+
+    function renderDay(index) {
+      const day = days[index];
+      dayDetail.innerHTML = `
+        <header>
+          <span class="day-kicker">Day ${String(index + 1).padStart(2, "0")} · ${day.date} · ${day.place}</span>
+          <h3>${day.title}</h3>
+          <p class="day-summary">${day.summary}</p>
+        </header>
+        <div class="day-sections">
+          ${day.blocks.map(([title, body]) => `<section class="day-block"><h4>${title}</h4>${body}</section>`).join("")}
+        </div>
+        <div class="day-tip">${day.tip}</div>
+        ${day.links.length ? `<div class="inline-links">${day.links.map(([label, url]) => `<a class="mini-link" href="${url}" target="_blank" rel="noopener">${label} ↗</a>`).join("")}</div>` : ""}
+      `;
+      document.querySelectorAll(".day-button").forEach((button, i) => {
+        button.classList.toggle("active", i === index);
+        button.setAttribute("aria-selected", i === index ? "true" : "false");
+      });
+      daySelect.value = index;
+    }
+
+    days.forEach((day, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "day-button";
+      button.setAttribute("role", "tab");
+      button.innerHTML = `<span class="date">${day.date}</span><span><strong>${day.place}</strong><span>${day.title}</span></span>`;
+      button.addEventListener("click", () => renderDay(index));
+      dayList.appendChild(button);
+
+      const option = document.createElement("option");
+      option.value = index;
+      option.textContent = `Day ${index + 1} · ${day.date} · ${day.place}`;
+      daySelect.appendChild(option);
+    });
+
+    daySelect.addEventListener("change", (event) => renderDay(Number(event.target.value)));
+    renderDay(0);
+
+    const progress = document.querySelector(".progress");
+    addEventListener("scroll", () => {
+      const total = document.documentElement.scrollHeight - innerHeight;
+      progress.style.width = `${total > 0 ? (scrollY / total) * 100 : 0}%`;
+    }, { passive: true });
+
+    document.querySelectorAll("[data-save-pdf]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const previousTitle = document.title;
+        document.title = "Japan-Itinerary-Printable";
+        window.print();
+        setTimeout(() => { document.title = previousTitle; }, 500);
+      });
+    });
+  </script>
+</body>
+</html>
