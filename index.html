@@ -349,6 +349,35 @@
     .stay p { margin: 0; color: var(--muted); font-size: .86rem; }
     .stay:first-child p { color: rgba(255,255,255,.72); }
     .stay a { color: inherit; }
+    .stay-cta {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 9px 13px;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      font-size: .76rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .stay:first-child .stay-cta {
+      color: white;
+      border-color: rgba(255,255,255,.35);
+      background: rgba(255,255,255,.08);
+    }
+    .stay:first-child .stay-cta:hover { color: var(--green); background: white; }
+    .stay-alternative {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,.22);
+    }
+    .stay-option-label {
+      color: #dfbd85;
+      font-size: .68rem;
+      font-weight: 750;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .stay-alternative h4 { margin: 6px 0 8px; font-size: 1.08rem; }
 
     .booking-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
     .booking {
@@ -578,7 +607,14 @@
           <article class="stay">
             <span class="stay-city">Hakone · Our pick</span>
             <h3>Setsugetsuka Bettei Suiun</h3>
-            <p>Book a Japanese-style twin room. Its in-room bath receives natural hot-spring water, and separate private baths are also available. At Suiun or Tokinoyu Setsugetsuka, enjoy the matcha experience if it is running and the free late-night ramen. <a href="https://www.klook.com/hotels/detail/23781-setsugetsuka-bettei-suiun/" target="_blank" rel="noopener">Book Setsugetsuka Bettei Suiun hotel on Klook ↗</a> For a lower price, compare Tokinoyu. It is run by the same company, and its separate private baths use natural hot-spring water and are enough for a relaxing stay. Only its in-room bath does not use natural hot-spring water. <a href="https://www.klook.com/en-IN/hotels/detail/270600-toki-no-yu-setsugetsuka/" target="_blank" rel="noopener">Book Tokinoyu Setsugetsuka hotel on Klook ↗</a></p>
+            <p>Book a Japanese-style twin room. Its in-room bath receives natural hot-spring water, and separate private baths are also available. At either hotel, enjoy the matcha experience if it is running and the free late-night ramen.</p>
+            <a class="stay-cta" href="https://www.klook.com/hotels/detail/23781-setsugetsuka-bettei-suiun/" target="_blank" rel="noopener">Book Suiun on Klook ↗</a>
+            <div class="stay-alternative">
+              <span class="stay-option-label">Lower-price option</span>
+              <h4>Tokinoyu Setsugetsuka</h4>
+              <p>Choose this hotel if the separate private baths are enough for you. They use natural hot-spring water. Only the bath inside your room does not use natural hot-spring water. Tokinoyu is run by the same company as Suiun.</p>
+              <a class="stay-cta" href="https://www.klook.com/en-IN/hotels/detail/270600-toki-no-yu-setsugetsuka/" target="_blank" rel="noopener">Book Tokinoyu on Klook ↗</a>
+            </div>
           </article>
           <article class="stay">
             <span class="stay-city">Kyoto · Connected</span>
