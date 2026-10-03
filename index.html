@@ -320,6 +320,20 @@
       text-decoration: none;
     }
     .mini-link:hover { color: white; border-color: var(--red); background: var(--red); }
+    .day-nav { display: none; }
+    .day-nav-button {
+      flex: 1;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--ink);
+      background: var(--surface);
+      font-size: .78rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .day-nav-button:last-child { color: white; border-color: var(--red-dark); background: var(--red-dark); }
+    .day-nav-button:disabled { opacity: .35; cursor: default; }
 
     .stays { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .stay {
@@ -446,14 +460,26 @@
         overflow-wrap: anywhere;
       }
       .top-grid, .stays, .tips, .booking-grid { grid-template-columns: 1fr; }
+      .top-card {
+        min-height: 0;
+        justify-content: flex-start;
+        gap: 28px;
+      }
       .top-card:last-child, .tip-card.wide { grid-column: auto; }
       .itinerary-shell { display: block; min-height: 0; }
       .day-list { display: none; }
       .day-select-wrap { display: block; }
-      .day-detail { padding: 26px 20px; }
+      .day-detail { padding: 26px 20px; scroll-margin-top: 74px; }
       .day-sections { grid-template-columns: 1fr; }
       .day-block, .day-block:nth-child(even) { padding: 18px 0; border-left: 0; }
       .day-block:nth-child(n+2) { border-top: 1px solid var(--line); }
+      .day-nav {
+        display: flex;
+        gap: 10px;
+        margin-top: 22px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+      }
       .verdict { display: block; }
     }
 
@@ -550,9 +576,9 @@
         </div>
         <div class="stays">
           <article class="stay">
-            <span class="stay-city">Hakone · Special stay</span>
-            <h3>Setsugetsuka Bettei Suiun</h3>
-            <p>Book a Japanese-style twin room. Its in-room bath receives natural hot-spring water, and separate private hot-spring baths are available. Arrive early enough to use them. <a href="https://www.klook.com/hotels/detail/23781-setsugetsuka-bettei-suiun/" target="_blank" rel="noopener">Book Setsugetsuka Bettei Suiun hotel on Klook ↗</a> For a lower price, choose Tokinoyu Setsugetsuka hotel. Both hotels are run by the same company and both have separate private hot-spring baths. The main difference is that the bath inside your room at Tokinoyu does not receive natural hot-spring water. <a href="https://www.klook.com/en-IN/hotels/detail/270600-toki-no-yu-setsugetsuka/" target="_blank" rel="noopener">Book Tokinoyu Setsugetsuka hotel on Klook ↗</a></p>
+            <span class="stay-city">Hakone · Our pick</span>
+            <h3>Tokinoyu Setsugetsuka</h3>
+            <p>We recommend Tokinoyu because it costs less and its separate private baths use natural hot-spring water. These baths are enough for a relaxing stay. The bath inside your room does not use natural hot-spring water. At Tokinoyu or Setsugetsuka Bettei Suiun, enjoy the matcha experience if it is running and the free late-night ramen. Both hotels are run by the same company. <a href="https://www.klook.com/en-IN/hotels/detail/270600-toki-no-yu-setsugetsuka/" target="_blank" rel="noopener">Book Tokinoyu Setsugetsuka hotel on Klook ↗</a> Choose Suiun only if natural hot-spring water inside your room is important to you. <a href="https://www.klook.com/hotels/detail/23781-setsugetsuka-bettei-suiun/" target="_blank" rel="noopener">Book Setsugetsuka Bettei Suiun hotel on Klook ↗</a></p>
           </article>
           <article class="stay">
             <span class="stay-city">Kyoto · Connected</span>
@@ -634,7 +660,7 @@
     <p>This itinerary is based on our actual journey. It focuses on Hakone, teamLab Biovortex Kyoto and SHIBUYA SKY, with enough rest between long walking days.</p>
 
     <h2>Day-by-day itinerary</h2>
-    <section class="print-day"><h3>17 September - Hakone</h3><p>Buy a Welcome Suica at Haneda Airport before leaving the airport and add at least ¥5,000 to each card. We travelled from Tokyo by train and then took a local bus to Gōra Station. Yumoto and Gōra are two towns in Hakone. Yumoto is the main entrance to Hakone, with more shops, restaurants and busy hot-spring streets. Gōra is higher in the mountains, quieter and closer to the cable car, ropeway and many traditional hotels. Leave luggage at the hotel, buy the Cable Car &amp; Ropeway 1-Day Ticket at Gōra Station and visit Ōwakudani before returning to Gōra. Eat the Quattro Formaggi pizza at Pub Stop Pizza &amp; Bar. Return early for the private hot-spring bath, sauna, kimono, 5 PM matcha experience, hot chocolate and free night ramen. If you stay at Setsugetsuka Bettei Suiun hotel, make time for the natural hot-spring bath in your room.</p></section>
+    <section class="print-day"><h3>17 September - Hakone</h3><p>Buy a Welcome Suica at Haneda Airport before leaving the airport and add at least ¥5,000 to each card. We travelled from Tokyo by train and then took a local bus to Gōra Station. Yumoto and Gōra are two towns in Hakone. Yumoto is the main entrance to Hakone, with more shops, restaurants and busy hot-spring streets. Gōra is higher in the mountains, quieter and closer to the cable car, ropeway and many traditional hotels. Leave luggage at the hotel, buy the Cable Car &amp; Ropeway 1-Day Ticket at Gōra Station and visit Ōwakudani before returning to Gōra. Eat the Quattro Formaggi pizza at Pub Stop Pizza &amp; Bar. At Suiun or Tokinoyu, return early for the private hot-spring bath, sauna, kimono, 5 PM matcha experience, hot chocolate and free night ramen. We prefer Tokinoyu because its separate private baths use natural hot-spring water and are enough for a relaxing stay. Choose Suiun if you also want natural hot-spring water in your room.</p></section>
     <section class="print-day"><h3>18 September - Hakone to Kyoto</h3><p>Have breakfast and one final bath, then travel through Odawara. Take a direct Hikari if the time works; Nozomi does not stop at Odawara. Book through SmartEX. In Kyoto, explore Nishiki Market, Pontochō and the Kamo River. Engine Ramen has a good vegan ramen; Mumokuteki is another good choice.</p></section>
     <section class="print-day"><h3>19 September - Arashiyama and teamLab Biovortex</h3><p>Reach the bamboo grove around 7 AM. We found it disappointing, so keep the visit short. Take the Sagano Romantic Train one way from Torokko Saga to Kameoka; choose Car No. 5 if available. Walk through the fields to JR Umahori and return to Arashiyama. Visit Tenryū-ji and book the Yuki lunch at Shigetsu. Rest in the afternoon, then spend 2-3 hours at teamLab Biovortex Kyoto. Eat at Honolu nearby and look for OHAYO Crème Brûlée and Butter de Shikonda Funwari Melonpan at 7-Eleven.</p></section>
     <section class="print-day"><h3>20 September - Historic Kyoto</h3><p>Reach Kiyomizu-dera near opening time, then walk down Sannenzaka and Ninenzaka. Try Rabbit Bagels’ garlic cheese bagel, pickled cucumber, strawberries and warm dorayaki. Eat lunch at Mumokuteki. Continue to the Nanzen-ji aqueduct and Philosopher’s Path, or reserve a ring-making activity. Choose Vegan Ramen UZU over Shokaku Noodles.</p></section>
@@ -647,7 +673,7 @@
 
     <h2>Hotels</h2>
     <ul>
-      <li><strong>Hakone:</strong> Setsugetsuka Bettei Suiun, ideally a Japanese-style twin room. Tokinoyu Setsugetsuka is a lower-priced hotel from the same company. Both have separate private hot-spring baths, but Tokinoyu’s in-room bath does not receive natural hot-spring water.</li>
+      <li><strong>Hakone:</strong> We prefer Tokinoyu Setsugetsuka because it costs less and its separate private baths use natural hot-spring water. These baths are enough for a relaxing stay. Choose Setsugetsuka Bettei Suiun if you also want natural hot-spring water in your room. Both hotels offer matcha if it is running and free late-night ramen.</li>
       <li><strong>Kyoto:</strong> the Airbnb near Tōfukuji was close to the train station, although the rooms felt small.</li>
       <li><strong>Osaka:</strong> Hiyori Hotel Osaka Namba Station, preferably a Deluxe Double Room.</li>
       <li><strong>Tokyo:</strong> Tokyo Sunshine Tower in Minato was central. Shinjuku or Ginza are also easy areas for a first visit.</li>
@@ -686,7 +712,7 @@
           ["Getting to Gōra", "<p>Buy a Welcome Suica at Haneda Airport before leaving the airport and add at least <strong>¥5,000</strong> to each card. We travelled from Tokyo by train and then took a local bus to <strong>Gōra Station</strong>. We left our luggage at the hotel before sightseeing.</p>"],
           ["Two towns in Hakone: Yumoto vs Gōra", "<p><strong>Yumoto and Gōra are two towns in Hakone.</strong> Yumoto is the main entrance to Hakone, with more shops, restaurants and busy hot-spring streets. Gōra is higher in the mountains, quieter and closer to the cable car, ropeway and many traditional hotels.</p>"],
           ["Ropeway & food", "<p>Buy the Cable Car & Ropeway 1-Day Ticket at Gōra Station. Ride to Sōunzan, continue by ropeway and stop at Ōwakudani. Back in Gōra, order the <strong>Quattro Formaggi pizza</strong> at Pub Stop Pizza & Bar.</p>"],
-          ["Hotel evening", "<p>Enjoy the kimono, private hot-spring bath, sauna, 5 PM matcha if offered, hot chocolate and free late-night ramen. If you stay at Setsugetsuka Bettei Suiun hotel, use the natural hot-spring bath in your room.</p>"]
+          ["Hotel evening", "<p>At Setsugetsuka Bettei Suiun or Tokinoyu Setsugetsuka, enjoy the kimono, private hot-spring bath, sauna, 5 PM matcha if offered, hot chocolate and free late-night ramen. We prefer Tokinoyu because its separate private baths use natural hot-spring water and are enough for a relaxing stay. Choose Suiun if you also want natural hot-spring water in your room.</p>"]
         ],
         tip: "<strong>Ticket tip:</strong> buy the Cable Car & Ropeway 1-Day Ticket at Gōra Station. It allows unlimited rides that day and is useful when you want to return to Gōra.",
         links: [["Open Pub Stop Pizza & Bar in Google Maps", "https://www.google.com/maps/search/?api=1&query=Pub+Stop+Pizza+Bar+Gora+Hakone"]]
@@ -818,12 +844,27 @@
         </div>
         <div class="day-tip">${day.tip}</div>
         ${day.links.length ? `<div class="inline-links">${day.links.map(([label, url]) => `<a class="mini-link" href="${url}" target="_blank" rel="noopener">${label} ↗</a>`).join("")}</div>` : ""}
+        <nav class="day-nav" aria-label="Move between itinerary days">
+          <button class="day-nav-button" type="button" data-day-index="${index - 1}" ${index === 0 ? "disabled" : ""}>← Previous day</button>
+          <button class="day-nav-button" type="button" data-day-index="${index + 1}" ${index === days.length - 1 ? "disabled" : ""}>Next day →</button>
+        </nav>
       `;
       document.querySelectorAll(".day-button").forEach((button, i) => {
         button.classList.toggle("active", i === index);
         button.setAttribute("aria-selected", i === index ? "true" : "false");
       });
       daySelect.value = index;
+      dayDetail.querySelectorAll("[data-day-index]").forEach((button) => {
+        button.addEventListener("click", () => {
+          renderDay(Number(button.dataset.dayIndex));
+          requestAnimationFrame(() => {
+            dayDetail.scrollIntoView({
+              behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+              block: "start"
+            });
+          });
+        });
+      });
     }
 
     days.forEach((day, index) => {
