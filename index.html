@@ -338,18 +338,19 @@
     .day-nav-button:disabled { opacity: .35; cursor: default; }
 
     .stays { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .stay-column { display: flex; flex-direction: column; gap: 16px; }
     .stay {
       padding: 24px;
       border: 1px solid var(--line);
       border-radius: 22px;
       background: var(--surface);
     }
-    .stay:first-child { color: white; border-color: transparent; background: var(--green); }
+    .stay-featured { color: white; border-color: transparent; background: var(--green); }
     .stay-city { color: var(--red); font-size: .68rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
-    .stay:first-child .stay-city { color: #dfbd85; }
+    .stay-featured .stay-city { color: #dfbd85; }
     .stay h3 { margin: 7px 0 10px; font-family: var(--display); font-size: 1.4rem; font-weight: 600; letter-spacing: -.03em; }
     .stay p { margin: 0; color: var(--muted); font-size: .86rem; }
-    .stay:first-child p { color: rgba(255,255,255,.72); }
+    .stay-featured p { color: rgba(255,255,255,.72); }
     .stay a { color: inherit; }
     .stay-cta {
       display: inline-block;
@@ -361,12 +362,12 @@
       font-weight: 700;
       text-decoration: none;
     }
-    .stay:first-child .stay-cta {
+    .stay-featured .stay-cta {
       color: white;
       border-color: rgba(255,255,255,.35);
       background: rgba(255,255,255,.08);
     }
-    .stay:first-child .stay-cta:hover { color: var(--green); background: white; }
+    .stay-featured .stay-cta:hover { color: var(--green); background: white; }
     .stay-alternative {
       margin-top: 24px;
       padding-top: 20px;
@@ -425,25 +426,22 @@
     .product-list li {
       min-width: 0;
       padding: 15px 0;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      grid-template-rows: auto auto;
+      display: flex;
       align-items: center;
-      align-content: start;
-      column-gap: 18px;
-      row-gap: 4px;
+      gap: 18px;
       border-bottom: 1px solid var(--line);
     }
+    .product-copy { flex: 1 1 auto; min-width: 0; }
     .product-list strong {
       display: block;
       min-width: 0;
+      margin-bottom: 4px;
       color: var(--ink);
       line-height: 1.35;
     }
     .product-list span { display: block; min-width: 0; line-height: 1.45; }
     .product-list a {
-      grid-column: 2;
-      grid-row: 1 / 3;
+      flex: 0 0 auto;
       padding: 7px 10px;
       border: 1px solid rgba(111, 32, 26, .16);
       border-radius: 999px;
@@ -553,6 +551,11 @@
         overflow-wrap: anywhere;
       }
       .top-grid, .stays, .tips, .booking-grid { grid-template-columns: 1fr; }
+      .stay-column { display: contents; }
+      .stay-hakone { order: 1; }
+      .stay-kyoto { order: 2; }
+      .stay-osaka { order: 3; }
+      .stay-tokyo { order: 4; }
       .top-card {
         min-height: 0;
         grid-template-rows: auto auto;
@@ -583,15 +586,12 @@
 
     @media (max-width: 430px) {
       .product-list li {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto;
-        row-gap: 5px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
       }
       .product-list a {
-        grid-column: 1;
-        grid-row: 3;
-        justify-self: start;
-        margin-top: 5px;
+        margin-top: 0;
       }
     }
 
@@ -687,35 +687,39 @@
           <p class="intro">For a first trip, a convenient location is very important. Stay near the train route you will use and confirm luggage arrangements before arrival.</p>
         </div>
         <div class="stays">
-          <article class="stay">
-            <span class="stay-city">Hakone · Our pick</span>
-            <h3>Setsugetsuka Bettei Suiun</h3>
-            <p>Book a Japanese-style twin room. Its in-room bath receives natural hot-spring water, and separate private baths are also available. At either hotel, enjoy the matcha experience if it is running and the free late-night ramen.</p>
-            <a class="stay-cta" href="https://www.klook.com/hotels/detail/23781-setsugetsuka-bettei-suiun/" target="_blank" rel="noopener">Book Suiun on Klook ↗</a>
-            <div class="stay-alternative">
-              <span class="stay-option-label">Lower-price option</span>
-              <h4>Tokinoyu Setsugetsuka</h4>
-              <p>Choose this hotel if the separate private baths are enough for you. They use natural hot-spring water. Only the bath inside your room does not use natural hot-spring water. Tokinoyu is run by the same company as Suiun.</p>
-              <a class="stay-cta" href="https://www.klook.com/en-IN/hotels/detail/270600-toki-no-yu-setsugetsuka/" target="_blank" rel="noopener">Book Tokinoyu on Klook ↗</a>
-            </div>
-          </article>
-          <article class="stay">
-            <span class="stay-city">Kyoto · Connected</span>
-            <h3>Airbnb near Tōfukuji</h3>
-            <p>One JR stop from Kyoto Station and convenient for Fushimi Inari and Nara. The location was excellent; the rooms felt small.</p>
-            <a href="https://www.airbnb.co.in/rooms/1383666305215118051" target="_blank" rel="noopener">View the Kyoto Airbnb ↗</a>
-          </article>
-          <article class="stay">
-            <span class="stay-city">Osaka · Our pick</span>
-            <h3>Hiyori Hotel Namba</h3>
-            <p>Choose the Deluxe Double Room. It is spacious, close to Namba and includes a foot massager in every room.</p>
-            <a href="https://www.klook.com/en-IN/hotels/detail/1054589-hiyori-hotel-osaka-namba-station/" target="_blank" rel="noopener">Book Hiyori Hotel on Klook ↗</a>
-          </article>
-          <article class="stay">
-            <span class="stay-city">Tokyo · Central</span>
-            <h3>Tokyo Sunshine Tower, Minato</h3>
-            <p>Central for Ginza, Shibuya, Toyosu and Haneda. You can also stay in Shinjuku or Ginza if most of your plans are close to those areas.</p>
-          </article>
+          <div class="stay-column">
+            <article class="stay stay-featured stay-hakone">
+              <span class="stay-city">Hakone · Our pick</span>
+              <h3>Setsugetsuka Bettei Suiun</h3>
+              <p>Book a Japanese-style twin room. Its in-room bath receives natural hot-spring water, and separate private baths are also available. At either hotel, enjoy the matcha experience if it is running and the free late-night ramen.</p>
+              <a class="stay-cta" href="https://www.klook.com/hotels/detail/23781-setsugetsuka-bettei-suiun/" target="_blank" rel="noopener">Book Suiun on Klook ↗</a>
+              <div class="stay-alternative">
+                <span class="stay-option-label">Lower-price option</span>
+                <h4>Tokinoyu Setsugetsuka</h4>
+                <p>Choose this hotel if the separate private baths are enough for you. They use natural hot-spring water. Only the bath inside your room does not use natural hot-spring water. Tokinoyu is run by the same company as Suiun.</p>
+                <a class="stay-cta" href="https://www.klook.com/en-IN/hotels/detail/270600-toki-no-yu-setsugetsuka/" target="_blank" rel="noopener">Book Tokinoyu on Klook ↗</a>
+              </div>
+            </article>
+            <article class="stay stay-osaka">
+              <span class="stay-city">Osaka · Our pick</span>
+              <h3>Hiyori Hotel Namba</h3>
+              <p>Choose the Deluxe Double Room. It is spacious, close to Namba and includes a foot massager in every room.</p>
+              <a href="https://www.klook.com/en-IN/hotels/detail/1054589-hiyori-hotel-osaka-namba-station/" target="_blank" rel="noopener">Book Hiyori Hotel on Klook ↗</a>
+            </article>
+          </div>
+          <div class="stay-column">
+            <article class="stay stay-kyoto">
+              <span class="stay-city">Kyoto · Connected</span>
+              <h3>Airbnb near Tōfukuji</h3>
+              <p>One JR stop from Kyoto Station and convenient for Fushimi Inari and Nara. The location was excellent; the rooms felt small.</p>
+              <a href="https://www.airbnb.co.in/rooms/1383666305215118051" target="_blank" rel="noopener">View the Kyoto Airbnb ↗</a>
+            </article>
+            <article class="stay stay-tokyo">
+              <span class="stay-city">Tokyo · Central</span>
+              <h3>Tokyo Sunshine Tower, Minato</h3>
+              <p>Central for Ginza, Shibuya, Toyosu and Haneda. You can also stay in Shinjuku or Ginza if most of your plans are close to those areas.</p>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -751,13 +755,13 @@
           <article class="tip-card products">
             <h3>Beauty products to look for</h3>
             <ul class="product-list">
-              <li><strong>Rohto Melano CC Premium Essence</strong><span>Brightens dark spots with vitamin C.</span><a href="https://www.google.com/search?tbm=isch&amp;q=Rohto+Melano+CC+Premium+Essence" target="_blank" rel="noopener">Product images</a></li>
-              <li><strong>SANA Nameraka Honpo eye cream</strong><span>Gold: wrinkles. Pink: brightening. Red: dryness or dark circles.</span><a href="https://www.google.com/search?tbm=isch&amp;q=SANA+Nameraka+Honpo+eye+cream+gold+pink+red" target="_blank" rel="noopener">Product images</a></li>
-              <li><strong>Fino Premium Touch Hair Mask</strong><span>Softens dry and damaged hair.</span><a href="https://www.google.com/search?tbm=isch&amp;q=Fino+Premium+Touch+Hair+Mask" target="_blank" rel="noopener">Product images</a></li>
-              <li><strong>Keana Nadeshiko Rice Mask</strong><span>Hydrates skin for a softer feel.</span><a href="https://www.google.com/search?tbm=isch&amp;q=Keana+Nadeshiko+Rice+Mask" target="_blank" rel="noopener">Product images</a></li>
-              <li><strong>DHC Lip Cream</strong><span>Keeps dry lips soft and smooth.</span><a href="https://www.google.com/search?tbm=isch&amp;q=DHC+Lip+Cream+Japan" target="_blank" rel="noopener">Product images</a></li>
-              <li><strong>Hada Labo Gokujyun Premium Lotion</strong><span>Deep hydration for dry skin.</span><a href="https://www.google.com/search?tbm=isch&amp;q=Hada+Labo+Gokujyun+Premium+Lotion" target="_blank" rel="noopener">Product images</a></li>
-              <li><strong>Biodance Bio-Collagen Real Deep Mask</strong><span>Overnight hydration for plumper-looking skin.</span><a href="https://www.google.com/search?tbm=isch&amp;q=Biodance+Bio-Collagen+Real+Deep+Mask" target="_blank" rel="noopener">Product images</a></li>
+              <li><div class="product-copy"><strong>Rohto Melano CC Premium Essence</strong><span>Brightens dark spots with vitamin C.</span></div><a href="https://www.google.com/search?tbm=isch&amp;q=Rohto+Melano+CC+Premium+Essence" target="_blank" rel="noopener">Product images</a></li>
+              <li><div class="product-copy"><strong>SANA Nameraka Honpo eye cream</strong><span>Gold: wrinkles. Pink: brightening. Red: dryness or dark circles.</span></div><a href="https://www.google.com/search?tbm=isch&amp;q=SANA+Nameraka+Honpo+eye+cream+gold+pink+red" target="_blank" rel="noopener">Product images</a></li>
+              <li><div class="product-copy"><strong>Fino Premium Touch Hair Mask</strong><span>Softens dry and damaged hair.</span></div><a href="https://www.google.com/search?tbm=isch&amp;q=Fino+Premium+Touch+Hair+Mask" target="_blank" rel="noopener">Product images</a></li>
+              <li><div class="product-copy"><strong>Keana Nadeshiko Rice Mask</strong><span>Hydrates skin for a softer feel.</span></div><a href="https://www.google.com/search?tbm=isch&amp;q=Keana+Nadeshiko+Rice+Mask" target="_blank" rel="noopener">Product images</a></li>
+              <li><div class="product-copy"><strong>DHC Lip Cream</strong><span>Keeps dry lips soft and smooth.</span></div><a href="https://www.google.com/search?tbm=isch&amp;q=DHC+Lip+Cream+Japan" target="_blank" rel="noopener">Product images</a></li>
+              <li><div class="product-copy"><strong>Hada Labo Gokujyun Premium Lotion</strong><span>Deep hydration for dry skin.</span></div><a href="https://www.google.com/search?tbm=isch&amp;q=Hada+Labo+Gokujyun+Premium+Lotion" target="_blank" rel="noopener">Product images</a></li>
+              <li><div class="product-copy"><strong>Biodance Bio-Collagen Real Deep Mask</strong><span>Overnight hydration for plumper-looking skin.</span></div><a href="https://www.google.com/search?tbm=isch&amp;q=Biodance+Bio-Collagen+Real+Deep+Mask" target="_blank" rel="noopener">Product images</a></li>
             </ul>
             <p class="product-note">OS Drug may have the lowest prices, but it may not stock every item. Also explore Sundrug, Matsumoto Kiyoshi, Yodobashi Camera and Bic Camera.</p>
           </article>
