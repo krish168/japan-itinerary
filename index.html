@@ -215,9 +215,10 @@
     .top-card {
       min-height: 250px;
       padding: 26px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      align-content: start;
+      gap: 38px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--surface);
@@ -227,9 +228,10 @@
     .top-card:nth-child(2) { border-top: 3px solid var(--red); }
     .top-card:nth-child(3) { border-top: 3px solid var(--gold); }
     .top-number { color: var(--muted); font-size: .72rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    .top-card > div { display: flex; flex-direction: column; align-items: flex-start; }
     .top-card h3 { margin: 0 0 8px; font-family: var(--display); font-size: 1.65rem; font-weight: 600; letter-spacing: -.035em; }
     .top-card p { margin: 0; color: inherit; opacity: .76; font-size: .9rem; }
-    .top-card a { align-self: flex-start; margin-top: 16px; color: var(--red-dark); font-size: .78rem; font-weight: 700; }
+    .top-card a { align-self: flex-start; margin-top: auto; padding-top: 16px; color: var(--red-dark); font-size: .78rem; font-weight: 700; }
 
     .choice {
       margin-top: 16px;
@@ -399,6 +401,16 @@
     .tip-card li + li { margin-top: 5px; }
     .tip-card.wide { grid-column: span 2; color: white; border-color: transparent; background: var(--red-dark); }
     .tip-card.wide p { color: rgba(255,255,255,.72); }
+    .tip-card.products { grid-column: 1 / -1; }
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px 24px;
+      padding: 0;
+      list-style: none;
+    }
+    .product-list strong { display: block; margin-bottom: 2px; color: var(--ink); }
+    .product-note { margin-top: 14px !important; font-size: .76rem !important; }
     .japanese { display: block; margin: 13px 0 8px; color: white; font-size: 1.05rem; line-height: 1.65; }
 
     .verdict {
@@ -491,10 +503,12 @@
       .top-grid, .stays, .tips, .booking-grid { grid-template-columns: 1fr; }
       .top-card {
         min-height: 0;
-        justify-content: flex-start;
+        grid-template-rows: auto auto;
         gap: 28px;
       }
       .top-card:last-child, .tip-card.wide { grid-column: auto; }
+      .tip-card.products { grid-column: auto; }
+      .product-list { grid-template-columns: 1fr; }
       .itinerary-shell { display: block; min-height: 0; }
       .day-list { display: none; }
       .day-select-wrap { display: block; }
@@ -665,6 +679,19 @@
           <article class="tip-card"><h3>Bring Indian comfort food</h3><p>Rajma, jeera rice, thepla and chutney were very helpful after long days. Use sealed food packs that do not need a fridge, pack chutney in containers that do not leak and check Japan’s food rules before travelling. A microwave or small kitchen helps.</p></article>
           <article class="tip-card"><h3>Luggage</h3><p>Ask if you can leave bags before check-in. Large station lockers fill up on holidays. Japanese luggage delivery (takkyubin) is useful, but first ask if your next hotel or host can receive the bag.</p></article>
           <article class="tip-card"><h3>Convenience-store favourites</h3><ul><li>7-Eleven or FamilyMart fruit sandwich - must try</li><li>FamilyMart Margherita pizza wrap</li><li>7-Eleven OHAYO Crème Brûlée</li><li>7-Eleven Butter de Shikonda Funwari Melonpan</li><li>Use remaining coins to print photos at 7-Eleven.</li></ul></article>
+          <article class="tip-card products">
+            <h3>Beauty products to look for</h3>
+            <ul class="product-list">
+              <li><strong>Rohto Melano CC Premium Essence</strong>Vitamin C serum for dark spots and brightening.</li>
+              <li><strong>SANA Nameraka Honpo eye cream</strong>Gold for wrinkles, pink for brightening and red for dryness or dark circles.</li>
+              <li><strong>Fino Premium Touch Hair Mask</strong>A popular mask for dry or damaged hair.</li>
+              <li><strong>Keana Nadeshiko Rice Mask</strong>A hydrating mask for soft skin.</li>
+              <li><strong>DHC Lip Cream</strong>A simple moisturising lip balm.</li>
+              <li><strong>Hada Labo Gokujyun Premium Lotion</strong>A deeply hydrating lotion.</li>
+              <li><strong>Biodance Bio-Collagen Real Deep Mask</strong>A hydrating overnight mask.</li>
+            </ul>
+            <p class="product-note">OS Drug may have the lowest prices, but it may not stock every item. Also explore Sundrug, Matsumoto Kiyoshi, Yodobashi Camera and Bic Camera. Packaging can vary, so check the product name and ingredients before buying.</p>
+          </article>
           <article class="tip-card"><h3>Try a short night bike ride</h3><p>Use Lime or LUUP for a short late-night ride in Kyoto or Tokyo. It is a fun way to explore quiet streets without a fixed plan. Check the app for bikes near you, park only in an approved parking area and follow local traffic rules.</p></article>
           <article class="tip-card wide"><h3>Vegetarian does not always mean no fish stock.</h3><p>Ask specifically about dashi, bonito, fish extract and egg. Save this on your phone:</p><span class="japanese" lang="ja">私たちはベジタリアンです。肉、魚、魚介類、魚のだし、卵は食べられません。乳製品は大丈夫です。</span><p>We are vegetarian. We cannot eat meat, fish, seafood, fish stock/dashi or egg. Dairy is fine.</p></article>
         </div>
@@ -704,7 +731,7 @@
     <section class="print-day"><h3>22 September - Kyoto to Osaka</h3><p>Leave around 10 AM and stay near Namba. At Hiyori Hotel, the Deluxe Double Room is spacious and includes a foot massager. We would skip the average ¥5,000 massage nearby and rest instead. Eat Indian or Nepali comfort food, then see Dōtonbori, Don Quijote, a purikura booth and quiet Hōzenji Yokochō after dark.</p></section>
     <section class="print-day"><h3>23 September - Osaka to Tokyo</h3><p>Travel from Namba to Shin-Osaka, not Osaka Station. For a Hikari or Kodama with non-reserved cars, arrive 20-30 minutes early. Starting at Shin-Osaka improves your chance of sitting together, but a seat is not guaranteed. Check whether Nozomi has reserved seats only on your travel date. In Tokyo, shop at UNIQLO, GU and MUJI in Ginza. ANNAM Indian Restaurant was excellent but expensive; we liked its paneer tikka masala, lachha paratha and aloo paratha.</p></section>
     <section class="print-day"><h3>24 September - Tokyo</h3><p>Our recommendation is to visit only teamLab Biovortex Kyoto. If you still want teamLab Planets (Tokyo), take an early slot, wear rollable trousers and eat the basic miso ramen at Vegan Ramen UZU. Otherwise start in Ginza: visit Age.3 for the crème brûlée and strawberry chocolate sandwiches, then browse G. Itoya, Seiko and MUJI. Enter SHIBUYA SKY around an hour before sunset and stay into the night. Tickets currently open at midnight Japan time 14 days ahead.</p></section>
-    <section class="print-day"><h3>25 September - Shinjuku, Harajuku and Skytree</h3><p>Shop at Onitsuka Tiger, Yodobashi and Bic Camera. Compare cosmetics at OS Drug, Sundrug and Matsumoto Kiyoshi. Visit Age.3 again in Harajuku for the raw honey and pistachio sandwiches. Across both visits, our ranking was crème brûlée first, strawberry chocolate second, raw honey third and pistachio fourth. Walk Takeshita Street and make purikura photos. Tokyo Skytree is optional if you already visited SHIBUYA SKY.</p></section>
+    <section class="print-day"><h3>25 September - Shinjuku, Harajuku and Skytree</h3><p>Visit Onitsuka Tiger, then explore Yodobashi Camera and Bic Camera. Compare and buy beauty products at OS Drug, Sundrug and Matsumoto Kiyoshi. OS Drug is usually cheaper even without tax-free shopping, but it may not stock every recommended item. At Age.3 Harajuku, try the raw honey and pistachio sandwiches. Across both Age.3 visits, our ranking was crème brûlée first, strawberry chocolate second, raw honey third and pistachio fourth. Walk Takeshita Street and make purikura photos. Tokyo Skytree is optional if you already visited SHIBUYA SKY.</p></section>
     <section class="print-day"><h3>26 September - Fly home</h3><p>Reach the airport around three hours before an international flight. Spend the remaining Welcome Suica balance at airport shops or convenience stores that accept Suica because money left on the card cannot be refunded.</p></section>
 
     <h2>Hotels</h2>
@@ -733,6 +760,7 @@
       <li>Ask each hotel or host if you can leave bags before check-in. Before using Japanese luggage delivery (takkyubin), ask if your next hotel or host can receive the bag.</li>
       <li>Reserve Shinkansen luggage space if the suitcase length + width + height is more than 160 cm.</li>
       <li>Convenience-store favourites: the must-try fruit sandwich from 7-Eleven or FamilyMart, FamilyMart Margherita pizza wrap, 7-Eleven OHAYO Crème Brûlée and 7-Eleven Butter de Shikonda Funwari Melonpan.</li>
+      <li>Beauty products to look for: Rohto Melano CC Premium Essence; SANA Nameraka Honpo eye cream; Fino Premium Touch Hair Mask; Keana Nadeshiko Rice Mask; DHC Lip Cream; Hada Labo Gokujyun Premium Lotion; and Biodance Bio-Collagen Real Deep Mask. OS Drug may be cheaper but may not stock every item.</li>
       <li>For a fun evening, use Lime or LUUP for a short bike ride in Kyoto or Tokyo. Park only in an approved area and follow local traffic rules.</li>
     </ul>
     <p><strong>Vegetarian phrase:</strong><br><span lang="ja">私たちはベジタリアンです。肉、魚、魚介類、魚のだし、卵は食べられません。乳製品は大丈夫です。</span><br>We are vegetarian. We cannot eat meat, fish, seafood, fish stock/dashi or egg. Dairy is fine.</p>
@@ -831,7 +859,7 @@
         blocks: [
           ["Morning choice", "<p>We recommend only <strong>Biovortex Kyoto</strong>. If you still want teamLab Planets (Tokyo), book an early slot, wear rollable trousers and expect mirrored floors and knee-deep water.</p>"],
           ["If visiting teamLab Planets (Tokyo)", "<p>Eat the basic miso ramen at Vegan Ramen UZU. It was our best vegan ramen; the yuzu version was only okay.</p>"],
-          ["Ginza · Age.3 visit one", "<p>Try the <strong>crème brûlée</strong> and <strong>strawberry chocolate</strong> sandwiches at Age.3, then browse G. Itoya, Seiko and MUJI.</p>"],
+          ["Age.3 Ginza recommendations", "<p>Try the <strong>crème brûlée</strong> and <strong>strawberry chocolate</strong> sandwiches, then browse G. Itoya, Seiko and MUJI.</p>"],
           ["Sunset", "<p>Enter <strong>SHIBUYA SKY</strong> about an hour before sunset and stay through the night view.</p>"]
         ],
         tip: "SHIBUYA SKY tickets currently open at <strong>00:00 JST, 14 days ahead</strong>. Rooftop access can close in strong wind or rain.",
@@ -841,12 +869,12 @@
         date: "25 Sep", place: "Tokyo", title: "Shinjuku, Harajuku & Skytree",
         summary: "A relaxed shopping day with an optional second city view.",
         blocks: [
-          ["Shinjuku", "<p>Visit Onitsuka Tiger around 1 PM, then Yodobashi and Bic Camera. Check cosmetic prices at OS Drug, Sundrug and Matsumoto Kiyoshi.</p>"],
-          ["Harajuku - Age.3 visit two", "<p>Walk Takeshita Street, use a Japanese photo booth (purikura), then return to Age.3 for the <strong>raw honey</strong> and <strong>pistachio</strong> sandwiches.</p>"],
-          ["All four - our ranking", "<ol><li>Crème brûlée</li><li>Strawberry chocolate</li><li>Raw honey</li><li>Pistachio</li></ol>"],
+          ["Shinjuku shopping", "<p>Visit Onitsuka Tiger around 1 PM, then explore Yodobashi Camera and Bic Camera. Compare and buy beauty products at OS Drug, Sundrug and Matsumoto Kiyoshi.</p>"],
+          ["Age.3 Harajuku recommendations", "<p>Walk Takeshita Street, use a Japanese photo booth (purikura), then try the <strong>raw honey</strong> and <strong>pistachio</strong> sandwiches at Age.3.</p>"],
+          ["Age.3 - our ranking of all four", "<ol><li>Crème brûlée</li><li>Strawberry chocolate</li><li>Raw honey</li><li>Pistachio</li></ol>"],
           ["8 PM - Skytree", "<p>Enjoy the night view if you want a second city view. If you want to pay for only one city view, choose SHIBUYA SKY.</p>"]
         ],
-        tip: "OS Drug is often cheaper but usually does not offer tax-free shopping. Check the final price, not only the tax-free sign.",
+        tip: "OS Drug is usually cheaper even without tax-free shopping, but it may not stock every recommended item. Also explore Sundrug and Matsumoto Kiyoshi, then buy where the product and final price are best.",
         links: [["Open Age.3 Harajuku in Google Maps", "https://www.google.com/maps/search/?api=1&query=Age.3+Harajuku"], ["Tokyo Skytree visitor information", "https://www.tokyo-skytree.jp/en/"]]
       },
       {
