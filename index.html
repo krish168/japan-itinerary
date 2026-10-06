@@ -337,15 +337,22 @@
     .day-nav-button:last-child { color: white; border-color: var(--red-dark); background: var(--red-dark); }
     .day-nav-button:disabled { opacity: .35; cursor: default; }
 
-    .stays { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .stay-column { display: flex; flex-direction: column; gap: 16px; }
+    .stays { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .stay {
       padding: 24px;
       border: 1px solid var(--line);
       border-radius: 22px;
       background: var(--surface);
     }
-    .stay-featured { color: white; border-color: transparent; background: var(--green); }
+    .stay-featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 30px;
+      color: white;
+      border-color: transparent;
+      background: var(--green);
+    }
     .stay-city { color: var(--red); font-size: .68rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
     .stay-featured .stay-city { color: #dfbd85; }
     .stay h3 { margin: 7px 0 10px; font-family: var(--display); font-size: 1.4rem; font-weight: 600; letter-spacing: -.03em; }
@@ -369,9 +376,9 @@
     }
     .stay-featured .stay-cta:hover { color: var(--green); background: white; }
     .stay-alternative {
-      margin-top: 24px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(255,255,255,.22);
+      margin: 0;
+      padding: 2px 0 2px 30px;
+      border-left: 1px solid rgba(255,255,255,.22);
     }
     .stay-option-label {
       color: #dfbd85;
@@ -551,11 +558,12 @@
         overflow-wrap: anywhere;
       }
       .top-grid, .stays, .tips, .booking-grid { grid-template-columns: 1fr; }
-      .stay-column { display: contents; }
-      .stay-hakone { order: 1; }
-      .stay-kyoto { order: 2; }
-      .stay-osaka { order: 3; }
-      .stay-tokyo { order: 4; }
+      .stay-featured { grid-template-columns: 1fr; gap: 22px; }
+      .stay-alternative {
+        padding: 20px 0 0;
+        border-top: 1px solid rgba(255,255,255,.22);
+        border-left: 0;
+      }
       .top-card {
         min-height: 0;
         grid-template-rows: auto auto;
@@ -687,39 +695,37 @@
           <p class="intro">For a first trip, a convenient location is very important. Stay near the train route you will use and confirm luggage arrangements before arrival.</p>
         </div>
         <div class="stays">
-          <div class="stay-column">
-            <article class="stay stay-featured stay-hakone">
+          <article class="stay stay-featured">
+            <div class="stay-primary">
               <span class="stay-city">Hakone · Our pick</span>
               <h3>Setsugetsuka Bettei Suiun</h3>
               <p>Book a Japanese-style twin room. Its in-room bath receives natural hot-spring water, and separate private baths are also available. At either hotel, enjoy the matcha experience if it is running and the free late-night ramen.</p>
               <a class="stay-cta" href="https://www.klook.com/hotels/detail/23781-setsugetsuka-bettei-suiun/" target="_blank" rel="noopener">Book Suiun on Klook ↗</a>
-              <div class="stay-alternative">
-                <span class="stay-option-label">Lower-price option</span>
-                <h4>Tokinoyu Setsugetsuka</h4>
-                <p>Choose this hotel if the separate private baths are enough for you. They use natural hot-spring water. Only the bath inside your room does not use natural hot-spring water. Tokinoyu is run by the same company as Suiun.</p>
-                <a class="stay-cta" href="https://www.klook.com/en-IN/hotels/detail/270600-toki-no-yu-setsugetsuka/" target="_blank" rel="noopener">Book Tokinoyu on Klook ↗</a>
-              </div>
-            </article>
-            <article class="stay stay-osaka">
-              <span class="stay-city">Osaka · Our pick</span>
-              <h3>Hiyori Hotel Namba</h3>
-              <p>Choose the Deluxe Double Room. It is spacious, close to Namba and includes a foot massager in every room.</p>
-              <a href="https://www.klook.com/en-IN/hotels/detail/1054589-hiyori-hotel-osaka-namba-station/" target="_blank" rel="noopener">Book Hiyori Hotel on Klook ↗</a>
-            </article>
-          </div>
-          <div class="stay-column">
-            <article class="stay stay-kyoto">
-              <span class="stay-city">Kyoto · Connected</span>
-              <h3>Airbnb near Tōfukuji</h3>
-              <p>One JR stop from Kyoto Station and convenient for Fushimi Inari and Nara. The location was excellent; the rooms felt small.</p>
-              <a href="https://www.airbnb.co.in/rooms/1383666305215118051" target="_blank" rel="noopener">View the Kyoto Airbnb ↗</a>
-            </article>
-            <article class="stay stay-tokyo">
-              <span class="stay-city">Tokyo · Central</span>
-              <h3>Tokyo Sunshine Tower, Minato</h3>
-              <p>Central for Ginza, Shibuya, Toyosu and Haneda. You can also stay in Shinjuku or Ginza if most of your plans are close to those areas.</p>
-            </article>
-          </div>
+            </div>
+            <div class="stay-alternative">
+              <span class="stay-option-label">Lower-price option</span>
+              <h4>Tokinoyu Setsugetsuka</h4>
+              <p>Choose this hotel if the separate private baths are enough for you. They use natural hot-spring water. Only the bath inside your room does not use natural hot-spring water. Tokinoyu is run by the same company as Suiun.</p>
+              <a class="stay-cta" href="https://www.klook.com/en-IN/hotels/detail/270600-toki-no-yu-setsugetsuka/" target="_blank" rel="noopener">Book Tokinoyu on Klook ↗</a>
+            </div>
+          </article>
+          <article class="stay">
+            <span class="stay-city">Kyoto · Connected</span>
+            <h3>Airbnb near Tōfukuji</h3>
+            <p>One JR stop from Kyoto Station and convenient for Fushimi Inari and Nara. The location was excellent; the rooms felt small.</p>
+            <a href="https://www.airbnb.co.in/rooms/1383666305215118051" target="_blank" rel="noopener">View the Kyoto Airbnb ↗</a>
+          </article>
+          <article class="stay">
+            <span class="stay-city">Osaka · Our pick</span>
+            <h3>Hiyori Hotel Namba</h3>
+            <p>Choose the Deluxe Double Room. It is spacious, close to Namba and includes a foot massager in every room.</p>
+            <a href="https://www.klook.com/en-IN/hotels/detail/1054589-hiyori-hotel-osaka-namba-station/" target="_blank" rel="noopener">Book Hiyori Hotel on Klook ↗</a>
+          </article>
+          <article class="stay">
+            <span class="stay-city">Tokyo · Central</span>
+            <h3>Tokyo Sunshine Tower, Minato</h3>
+            <p>Central for Ginza, Shibuya, Toyosu and Haneda. You can also stay in Shinjuku or Ginza if most of your plans are close to those areas.</p>
+          </article>
         </div>
       </section>
 
