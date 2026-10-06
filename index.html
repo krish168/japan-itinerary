@@ -406,38 +406,53 @@
     .tip-card.products { grid-column: 1 / -1; }
     .product-list {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 30px;
       padding: 0;
       list-style: none;
     }
     .product-list li {
-      min-height: 146px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: var(--paper);
-    }
-    .product-list strong { display: block; margin-bottom: 5px; color: var(--ink); }
-    .product-list span { display: block; }
-    .product-list a, .product-extra a { margin-top: auto; padding-top: 12px; font-size: .73rem; font-weight: 700; }
-    .product-extra {
-      margin-top: 12px;
-      padding: 14px 16px;
-      display: flex;
+      min-width: 0;
+      padding: 15px 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-rows: auto auto;
       align-items: center;
-      gap: 10px;
-      border-radius: 14px;
-      color: var(--muted);
-      background: var(--soft-red);
-      font-size: .8rem;
+      column-gap: 18px;
+      row-gap: 4px;
+      border-bottom: 1px solid var(--line);
     }
-    .product-extra strong { flex: 0 0 auto; color: var(--ink); }
-    .product-extra a { flex: 0 0 auto; margin: 0 0 0 auto; padding: 0; }
-    .product-note { margin-top: 14px !important; font-size: .76rem !important; }
+    .product-list strong {
+      display: block;
+      min-width: 0;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+    .product-list span { display: block; min-width: 0; line-height: 1.45; }
+    .product-list a {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      white-space: nowrap;
+      font-size: .72rem;
+      font-weight: 700;
+    }
+    .product-tag {
+      display: inline-block !important;
+      margin-left: 6px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      color: var(--red-dark);
+      background: var(--soft-red);
+      font-size: .61rem;
+      font-weight: 700;
+      vertical-align: 1px;
+    }
+    .product-note {
+      margin-top: 16px !important;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      font-size: .76rem !important;
+    }
     .japanese { display: block; margin: 13px 0 8px; color: white; font-size: 1.05rem; line-height: 1.65; }
 
     .verdict {
@@ -537,9 +552,7 @@
       .top-card:last-child, .tip-card.wide { grid-column: auto; }
       .tip-card.products { grid-column: auto; }
       .product-list { grid-template-columns: 1fr; }
-      .product-list li { min-height: 0; }
-      .product-extra { align-items: flex-start; flex-direction: column; }
-      .product-extra a { margin-left: 0; }
+      .product-list li { padding: 14px 0; }
       .booking-when { min-height: 0; }
       .itinerary-shell { display: block; min-height: 0; }
       .day-list { display: none; }
@@ -720,8 +733,8 @@
               <li><strong>Keana Nadeshiko Rice Mask</strong><span>A hydrating mask for soft skin.</span><a href="https://www.google.com/search?tbm=isch&amp;q=Keana+Nadeshiko+Rice+Mask" target="_blank" rel="noopener">See product images ↗</a></li>
               <li><strong>DHC Lip Cream</strong><span>A simple moisturising lip balm.</span><a href="https://www.google.com/search?tbm=isch&amp;q=DHC+Lip+Cream+Japan" target="_blank" rel="noopener">See product images ↗</a></li>
               <li><strong>Hada Labo Gokujyun Premium Lotion</strong><span>A deeply hydrating lotion.</span><a href="https://www.google.com/search?tbm=isch&amp;q=Hada+Labo+Gokujyun+Premium+Lotion" target="_blank" rel="noopener">See product images ↗</a></li>
+              <li><strong>Biodance Bio-Collagen Real Deep Mask <span class="product-tag">Also consider</span></strong><span>A hydrating overnight mask.</span><a href="https://www.google.com/search?tbm=isch&amp;q=Biodance+Bio-Collagen+Real+Deep+Mask" target="_blank" rel="noopener">See product images ↗</a></li>
             </ul>
-            <div class="product-extra"><strong>Also consider</strong><span>Biodance Bio-Collagen Real Deep Mask - a hydrating overnight mask.</span><a href="https://www.google.com/search?tbm=isch&amp;q=Biodance+Bio-Collagen+Real+Deep+Mask" target="_blank" rel="noopener">See product images ↗</a></div>
             <p class="product-note">OS Drug may have the lowest prices, but it may not stock every item. Also explore Sundrug, Matsumoto Kiyoshi, Yodobashi Camera and Bic Camera. Packaging can vary, so check the product name and ingredients before buying.</p>
           </article>
           <article class="tip-card"><h3>Try a short night bike ride</h3><p>Use Lime or LUUP for a short late-night ride in Kyoto or Tokyo. It is a fun way to explore quiet streets without a fixed plan. Check the app for bikes near you, park only in an approved parking area and follow local traffic rules.</p></article>
